@@ -1,8 +1,16 @@
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App.js'
-const title = 'Contact Tracing for the Gator Nation';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Container} from 'react-bootstrap';
+import {MainNav} from './components/MainNav';
+import { RegisterForm } from './components/RegisterForm';
+
 ReactDOM.render(
-  <p className="text-warning">{title}</p>,
+  <Container>
+  <MainNav />
+  <br/>
+  <RegisterForm />
+  </Container>,
   document.getElementById('root')
 );
