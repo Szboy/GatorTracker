@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Modal, Button} from 'react-bootstrap'
 import '../css/App.css';
 
-export class AboutUs extends ReactComponent {
+export class AboutUs extends Component {
     render() {
         return (
             <div>

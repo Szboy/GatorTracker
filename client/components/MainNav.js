@@ -10,7 +10,7 @@ export class MainNav extends Component {
       <Navbar bg="dark" variant="dark">
       <Navbar.Brand className="text-primary" href="/">Gator Tracker</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#home">About</Nav.Link>
+          <Nav.Link href="/about">About</Nav.Link>
         </Nav>
         <Form inline>
         <Button variant="outline-warning button-nav" onClick={this.changeModal}>Register</Button>

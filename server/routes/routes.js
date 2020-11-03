@@ -13,6 +13,10 @@ router.get('/', function(req, res){
 
 router.post('/register', PersonController.registerPerson)
 
+router.get('/about', function(req, res) {
+  res.render('about')
+});
+
 //Test Population of db
 /*
 router.post('/test', function() {

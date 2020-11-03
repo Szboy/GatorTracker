@@ -27,5 +27,6 @@ if (uri) {
       .on('error', (error) => console.error(error.toString()));
   
 app.use('/', router);
+app.use('/about', router);
 
 export default app;
