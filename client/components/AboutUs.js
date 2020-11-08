@@ -42,9 +42,12 @@ export class AboutUs extends Component {
                 learn more about the symptoms and treatment, as well as schedule a test <a href="https://coronavirus.ufhealth.org/">here</a>.
                 </p>
 
-                <h1>Data Privacy and HIPAA Information</h1>
+                <h1 style= "text-align:center">Data Privacy and HIPAA Information</h1>
                 <p>
-
+                The HIPAA Laws are a series of laws and regulations protecting users' medical data, referred to as protected health information or
+                PHI.  To ensure compliance with all HIPAA laws and regulations and to protect the data of our users, no identifying data pertaining
+                to your diagnosis will be shared.  This includes, but is not limited to any names, emails, addresses or other personal information
+                you provide to this site.  The email address you provide will be used only for the purposes of authentification.
                 </p>
         </div>
         );
