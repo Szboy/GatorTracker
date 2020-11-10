@@ -1,4 +1,5 @@
-'use strict'
+// Only inital routing and posting lives here. Page routing is done through react via index.js
+
 
 import express from 'express';
 import Person from '../models/person'
@@ -11,8 +12,8 @@ router.get('/', function(req, res){
   res.render('index') //React index routing.
 });
 
-router.post('/register', PersonController.registerPerson)
-
+router.post('/api/register', PersonController.registerPerson)
+//router.get('/api/:id', PersonController.getPerson);
 //Test Population of db
 /*
 router.post('/test', function() {
