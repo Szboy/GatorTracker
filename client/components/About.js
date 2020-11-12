@@ -42,7 +42,7 @@ export class About extends Component {
                 to your diagnosis will be shared.  This includes, but is not limited to, any names, emails, addresses or other personal information
                 you provide to this site.  The email1address you provide will be used only for the purposes of authentification.
                 </p>
-                <h1 className="display-4">Made with <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill text-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg> by </h1>
+                <h1 className="display-4">Made with <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-heart-fill text-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg> by </h1>
                 <p className="lead pl-4">
                     <b>David Hutchins</b>: Project Manager
                     <br/>

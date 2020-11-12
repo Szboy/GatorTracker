@@ -8,12 +8,14 @@ import * as PersonController from '../controllers/personController.js'
 
 const router = express.Router();
 
-router.get('/', function(req, res){
-  res.render('index') //React index routing.
+router.get('/', function (req, res) {
+    res.render('index') //React index routing.
 });
+router.post('/api/update/:id', PersonController.updatePerson);
+router.post('/api/register', PersonController.registerPerson);
+router.get('/api/:id', PersonController.getPerson);
 
-router.post('/api/register', PersonController.registerPerson)
-//router.get('/api/:id', PersonController.getPerson);
+
 //Test Population of db
 /*
 router.post('/test', function() {
