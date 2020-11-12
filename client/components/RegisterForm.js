@@ -65,6 +65,12 @@ export class RegisterForm extends Component {
     render() {
         return (
             <Container>
+                <h4>
+                    Registration Form
+                </h4>
+                <Form.Label>
+                First time users: To be registered into our database, please fill out this registration form.
+                </Form.Label>
                 <Form id="register" onSubmit={this.sendRegistration}>
                     <Form.Group>
                         <Form.Label>First Name<span className="text-danger">*</span></Form.Label>
@@ -76,7 +82,7 @@ export class RegisterForm extends Component {
                         <Form.Control id="userEmail" value={this.state.email} onChange={this.handleTextChange} type="email" placeholder="Add UFL Email" />
                     </Form.Group>
                     <Form.Group >
-                        <Form.Check id="covidPositive" onChange={this.handleCheckboxChange} type="checkbox" label="Have you tested positive for COVID-19?"></Form.Check>
+                        <Form.Check id="covidPositive" onChange={this.handleCheckboxChange} type="checkbox" label="Check the box if you have tested positive for COVID-19"></Form.Check>
                     </Form.Group>
                     <hr />
                     <h6>If you tested positive, please list the people below for who you were in contact with.</h6>
@@ -88,6 +94,9 @@ export class RegisterForm extends Component {
                     <Form.Group>
                         <Form.Label>Contact's UFL Email</Form.Label>
                         <Form.Control id="contactEmail" value={this.state.contactEmail} onChange={this.handleTextChange} type="email" placeholder="Add Contact's UFL Email" />
+                        <Form.Label>
+                        If you need to find a specific UFL email, please look up their name in the directory <a href="https://directory.ufl.edu/">here</a>.
+                        </Form.Label>
                     </Form.Group>
                     <hr />
                     <Button variant="outline-primary" type="submit" action="/">
