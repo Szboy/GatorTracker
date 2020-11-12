@@ -1,9 +1,17 @@
 /*client/css/App.css*/
+
 .button-nav {
-  color: orange;
-  border-color: orange;
+    color: orange;
+    border-color: orange;
 }
-.button-nav:active, .button-nav:focus, .button-nav:hover {
-  color: rgb(0, 0, 0);
-  background-color: orange;
+
+.button-nav:active,
+.button-nav:focus,
+.button-nav:hover {
+    color: rgb(0, 0, 0);
+    background-color: orange;
+}
+
+.mainStatistic:not(:last-child) {
+    border-right: 1px solid #ccc;
 }
