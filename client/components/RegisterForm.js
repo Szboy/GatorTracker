@@ -27,7 +27,6 @@ export class RegisterForm extends Component {
         }
     }
     handleTextChange(e) {
-
         if (e.target.id === "userEmail") {
             this.setState({
                 email: e.target.value
