@@ -17,7 +17,7 @@ export class MainNav extends Component {
                 <Nav className="mr-auto">
                     <NavLink className="nav-link" to="/about">
                         About
-          </NavLink>
+                    </NavLink>
                 </Nav>
                 <Form inline>
                     <NavLink to="/register">

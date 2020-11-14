@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Form, Button } from 'react-bootstrap'
+import { Nav, Container, Form, Button } from 'react-bootstrap'
 import axios from 'axios';
 import querystring from 'querystring'
+import { NavLink } from 'react-router-dom';
+
 
 export class RegisterForm extends Component {
     constructor(props) {
@@ -99,9 +101,11 @@ export class RegisterForm extends Component {
                         </Form.Label>
                     </Form.Group>
                     <hr />
-                    <Button variant="outline-primary" type="submit" action="/">
-                        Submit
-                </Button>
+                    <NavLink to = '/success'>
+                        <Button onClick={this.sendRegistration} variant="outline-primary" type="submit" action="/register" >
+                            Submit
+                        </Button>
+                    </NavLink>
                 </Form>
             </Container>
         )
