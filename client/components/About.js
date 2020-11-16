@@ -33,14 +33,14 @@ export class About extends Component {
                 <h1 className="display-4">UF Testing Centers and Resources</h1>
                 <p className="pl-4">
                 The University of Florida offers extensive resources to combat the virus, you can visit their dedicated webpage to
-                learn more about the symptoms and treatment, as well as schedule a test <a href="https://coronavirus.ufhealth.org/">here</a>.
+                learn more about the symptoms and treatment, as well as schedule a test <a href="https://coronavirus.ufl.edu/resources/">here</a>.
                 </p>
                 <h1 className="display-4">Data Privacy and HIPAA Information</h1>
                 <p className="pl-4">
                 The HIPAA Laws are a series of laws and regulations protecting users' medical data, referred to as protected health information or
-                PHI.  To ensure compliance with all HIPAA laws and regulations and to protect the data of our users, no identifying data pertaining
+                PHI. To ensure compliance with all HIPAA laws and regulations and to protect the data of our users, no identifying data pertaining
                 to your diagnosis will be shared.  This includes, but is not limited to, any names, emails, addresses or other personal information
-                you provide to this site.  The email1address you provide will be used only for the purposes of authentification.
+                you provide to this site.  The email address you provide will be used only for the purposes of authentification.
                 </p>
                 <h1 className="display-4">Made with <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-heart-fill text-danger" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg> by </h1>
                 <p className="lead pl-4">
