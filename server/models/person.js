@@ -29,8 +29,18 @@ const Person = new mongoose.Schema({
     },
     contacts: {
         type: [Contact]
-    }
+    },
     //TODO: Location
+    location: {
+        type: {
+          type: String,
+          enum: ['Point'],
+        },
+        coordinates: {
+          type: [Number],
+          index: '2dsphere'
+        }
+    }
 })
 
 export default mongoose.model('Person', Person);

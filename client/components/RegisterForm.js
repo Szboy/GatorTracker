@@ -11,6 +11,11 @@ export class RegisterForm extends Component {
         this.state = {
             firstName: '',
             email: '',
+            location: {
+                type: "Point", 
+                longitude: '',
+                latitude: ''
+            },
             covidPositive: false,
             contactName: '',
             contactEmail: ''
@@ -39,6 +44,16 @@ export class RegisterForm extends Component {
                 firstName: e.target.value
             });
         }
+        if (e.target.id === "longitude") {
+            this.setState({
+                location:{longitude: e.target.value}
+            });
+        }
+        if (e.target.id === "latitude") {
+            this.setState({
+                location:{latitude: e.target.value}
+            });
+        }
         if (e.target.id === "contactName") {
             this.setState({
                 contactName: e.target.value
@@ -58,7 +73,9 @@ export class RegisterForm extends Component {
                 email: this.state.email,
                 covidPositive: this.state.covidPositive,
                 contactName: this.state.contactName,
-                contactEmail: this.state.contactEmail
+                contactEmail: this.state.contactEmail,
+                longitude: this.state.longitude,
+                latitude: this.state.latitude
             })
         )
 
@@ -83,6 +100,17 @@ export class RegisterForm extends Component {
                         <Form.Label>UFL Email<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="userEmail" value={this.state.email} onChange={this.handleTextChange} type="email" placeholder="Add UFL Email" />
                     </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Longitude<span className="text-danger">*</span></Form.Label>
+                        <Form.Control id="longitude" value={this.state.location.longitude} onChange={this.handleTextChange} type="number" placeholder="Enter your longitude" />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Latitude<span className="text-danger">*</span></Form.Label>
+                        <Form.Control id="latitude" value={this.state.location.latitude} onChange={this.handleTextChange} type="number" placeholder="Enter your latitude" />
+                    </Form.Group>
+
                     <Form.Group >
                         <Form.Check id="covidPositive" onChange={this.handleCheckboxChange} type="checkbox" label="Check the box if you have tested positive for COVID-19"></Form.Check>
                     </Form.Group>
