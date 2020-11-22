@@ -1,4 +1,5 @@
-import Person from '../models/person.js'
+import Person from '../models/person.js';
+import config from './../config.js';
 import nodeMailer from 'nodemailer';
 import mongoose from 'mongoose';
 
@@ -29,8 +30,8 @@ export const registerPerson = async (req, res) => {
     let transporter = nodeMailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'gatortrackers@gmail.com',
-          pass: 'Ek5^XbD0T4Nu'
+          user: config.db.user,
+          pass: config.db.pass
         }
       }); 
 
