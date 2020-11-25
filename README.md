@@ -4,8 +4,9 @@ Welcome to our very nice and cool project.
 ## First time Set-up
 1. Clone the repo using the cloning process of your choice (Mine is `git clone ssh`)
 2. Once cloned, run `npm install`. This will install all the dependencies (There are a lot!)
-3. Make sure you have MongoDB installed and working (I use v4.4 so I would recommed that, though any v4.x should work)
-4. Some computers might need `webpack-cli` or `webpack` installed globally. If this is necessary make sure to use `npm link`.
+3. Duplicate the config_template.json into config.json `cp config_template.json config.json` if using linux/bash.
+4. Add mongo and email credentials into config.json (Look in Discord for credentials).
+5. Some computers might need `webpack-cli` or `webpack` installed globally. If this is necessary make sure to use `npm link`.
 
 ## Running the Appp
 1. Start Mongo, once the app runs it will create a DB called GatorTracker at localhost (We can setup an Atlas DB at a later time)
