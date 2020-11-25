@@ -11,6 +11,17 @@ const Contact = new mongoose.Schema({
     }
 })
 
+const Location = new mongoose.Schema({
+    type: {
+        type: String,
+        enum: ['Point'],
+      },
+      coordinates: {
+        type: [Number],
+        index: '2dsphere'
+      }
+})
+
 const Person = new mongoose.Schema({
     firstName: {
         type: String, 
@@ -32,14 +43,7 @@ const Person = new mongoose.Schema({
     },
     //TODO: Location
     location: {
-        type: {
-          type: String,
-          enum: ['Point'],
-        },
-        coordinates: {
-          type: [Number],
-          index: '2dsphere'
-        }
+        type: Location
     }
 })
 

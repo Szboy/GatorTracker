@@ -11,11 +11,8 @@ export class RegisterForm extends Component {
         this.state = {
             firstName: '',
             email: '',
-            location: {
-                type: "Point", 
-                longitude: '',
-                latitude: ''
-            },
+            longitude: '',
+            latitude: '',
             covidPositive: false,
             contactName: '',
             contactEmail: ''
@@ -46,12 +43,12 @@ export class RegisterForm extends Component {
         }
         if (e.target.id === "longitude") {
             this.setState({
-                location:{longitude: e.target.value}
+                longitude: e.target.value
             });
         }
         if (e.target.id === "latitude") {
             this.setState({
-                location:{latitude: e.target.value}
+                latitude: e.target.value
             });
         }
         if (e.target.id === "contactName") {
@@ -103,12 +100,12 @@ export class RegisterForm extends Component {
 
                     <Form.Group>
                         <Form.Label>Longitude<span className="text-danger">*</span></Form.Label>
-                        <Form.Control id="longitude" value={this.state.location.longitude} onChange={this.handleTextChange} type="number" placeholder="Enter your longitude" />
+                        <Form.Control id="longitude" value={this.state.longitude} onChange={this.handleTextChange} type="number" placeholder="Enter your longitude" />
                     </Form.Group>
 
                     <Form.Group>
                         <Form.Label>Latitude<span className="text-danger">*</span></Form.Label>
-                        <Form.Control id="latitude" value={this.state.location.latitude} onChange={this.handleTextChange} type="number" placeholder="Enter your latitude" />
+                        <Form.Control id="latitude" value={this.state.latitude} onChange={this.handleTextChange} type="number" placeholder="Enter your latitude" />
                     </Form.Group>
 
                     <Form.Group >
