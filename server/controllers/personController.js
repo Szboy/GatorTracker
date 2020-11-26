@@ -1,9 +1,5 @@
-<<<<<<< Updated upstream
 import Person from '../models/person.js'
-=======
-import Person from '../models/person.js';
 import config from '../../config.json';
->>>>>>> Stashed changes
 import nodeMailer from 'nodemailer';
 import mongoose from 'mongoose';
 
