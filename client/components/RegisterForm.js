@@ -12,6 +12,8 @@ export class RegisterForm extends Component {
         this.state = {
             firstName: '',
             email: '',
+            longitude: '',
+            latitude: '',
             covidPositive: false,
             contacts: [],
         }
@@ -59,6 +61,16 @@ export class RegisterForm extends Component {
                 firstName: e.target.value
             });
         }
+        if (e.target.id === "longitude") {
+            this.setState({
+                longitude: e.target.value
+            });
+        }
+        if (e.target.id === "latitude") {
+            this.setState({
+                latitude: e.target.value
+            });
+        }
     }
 
     addContact(e) {
@@ -87,6 +99,8 @@ export class RegisterForm extends Component {
                 email: this.state.email,
                 covidPositive: this.state.covidPositive,
                 // contacts: this.state.contacts,
+                longitude: this.state.longitude,
+                latitude: this.state.latitude
             })
         )
 
@@ -110,6 +124,17 @@ export class RegisterForm extends Component {
                         <Form.Label>UFL Email<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="userEmail" value={this.state.email} onChange={this.handleTextChange} type="email" placeholder="Add UFL Email" />
                     </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Longitude<span className="text-danger">*</span></Form.Label>
+                        <Form.Control id="longitude" value={this.state.longitude} onChange={this.handleTextChange} type="number" placeholder="Enter your longitude" />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Latitude<span className="text-danger">*</span></Form.Label>
+                        <Form.Control id="latitude" value={this.state.latitude} onChange={this.handleTextChange} type="number" placeholder="Enter your latitude" />
+                    </Form.Group>
+
                     <Form.Group >
                         <Form.Check id="covidPositive" onChange={this.handleCheckboxChange} type="checkbox" label="Check the box if you have tested positive for COVID-19"></Form.Check>
                     </Form.Group>

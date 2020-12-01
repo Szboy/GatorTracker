@@ -3,6 +3,7 @@ import config from '../../config.json';
 import nodeMailer from 'nodemailer';
 import mongoose from 'mongoose';
 
+
 export const getPerson = (req, res) => {
     Person.findOne({_id: req.params.id}, function (data, err) {
         if (err) {
