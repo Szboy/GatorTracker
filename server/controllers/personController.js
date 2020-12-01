@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import Person from '../models/person.js';
 import config from './../config.js';
+=======
+import Person from '../models/person.js'
+import config from '../../config.json';
+>>>>>>> main
 import nodeMailer from 'nodemailer';
 import mongoose from 'mongoose';
 
@@ -30,8 +35,13 @@ export const registerPerson = async (req, res) => {
     let transporter = nodeMailer.createTransport({
         service: 'gmail',
         auth: {
+<<<<<<< HEAD
           user: config.db.user,
           pass: config.db.pass
+=======
+          user: config.emailUser,
+          pass: config.emailPass
+>>>>>>> main
         }
       }); 
 

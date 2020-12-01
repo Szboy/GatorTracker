@@ -12,6 +12,7 @@ package-lock.json
 
 # production
 /build
+config.json
 
 # misc
 .DS_Store
