@@ -19,13 +19,20 @@ export const getPerson = (req, res) => {
 export const registerPerson = async (req, res) => {
     let personID = new mongoose.mongo.ObjectId(); //Creating mongoID outside the create function to use it in the email.
     let longLat = [req.body.longitude, req.body.latitude];
-    Person.create({_id: personID, firstName: req.body.firstName, email: req.body.email, covidPositive: req.body.covidPositive, location: {type: 'Point', coordinates: longLat}}, function (err) {
+    await new Person({
+        _id: personID, 
+        firstName: req.body.firstName, 
+        email: req.body.email, 
+        covidPositive: req.body.covidPositive, 
+        contacts: req.body.contacts, 
+        location: {type: 'Point', coordinates: longLat},
+    }).save(function (err) {
         if (err) {
             res.send(err);
         } else {
             res.send('User successfully added!');
         }
-    })
+    });
 
     // Password should really be stored more secure, will do later.
     let transporter = nodeMailer.createTransport({

@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
 const Contact = new mongoose.Schema({
-    contactName: {
+    email: {
         type: String, 
         required: true
     },
-    contactEmail: {
+    firstName: {
         type: String, 
         required: true
     }
@@ -41,7 +41,6 @@ const Person = new mongoose.Schema({
     contacts: {
         type: [Contact]
     },
-    //TODO: Location
     location: {
         type: Location
     }

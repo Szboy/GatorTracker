@@ -3,7 +3,6 @@ import { Container, Form, Row, Col, Button, Card } from 'react-bootstrap'
 import axios from 'axios';
 import querystring from 'querystring'
 import { NavLink } from 'react-router-dom';
-import { ContactRegister } from './ContactRegister';
 
 
 export class RegisterForm extends Component {
@@ -29,11 +28,11 @@ export class RegisterForm extends Component {
         let contacts = [...this.state.contacts];
 
         if (e.target.id === "contactName-" + i) {
-            contacts[i].contactName = e.target.value;
+            contacts[i].firstName = e.target.value;
         }
 
         if (e.target.id === "contactEmail-" + i) {
-            contacts[i].contactEmail = e.target.value;
+            contacts[i].email = e.target.value;
         }
 
         this.setState({
@@ -75,8 +74,8 @@ export class RegisterForm extends Component {
 
     addContact(e) {
         let contact = {
-            contactName: '',
-            contactEmail: '',
+            firstName: '',
+            email: '',
         }
         let contacts = this.state.contacts.concat(contact);
         this.setState({
@@ -93,15 +92,14 @@ export class RegisterForm extends Component {
       }
 
     sendRegistration(e) {
-        axios.post('/api/register',
-            querystring.stringify({
+        axios.post('/api/register', {
                 firstName: this.state.firstName,
                 email: this.state.email,
                 covidPositive: this.state.covidPositive,
-                // contacts: this.state.contacts,
+                contacts: this.state.contacts,
                 longitude: this.state.longitude,
                 latitude: this.state.latitude
-            })
+            }
         )
 
     }
@@ -156,15 +154,15 @@ export class RegisterForm extends Component {
                         <Card className="mt-3" style={{width: "75%"}} key={i}>
                             <Form.Group>
                             <Card.Header>
-                            <span>New Contact: {contact.contactName}</span>
+                            <span>New Contact: {contact.firstName}</span>
                             {/*Graphical weirdness happens when using a Button component for the close icon button so we are using the normal html button attribute*/}
                             <button type="button" onClick={this.removeContact(i)} className="close" aria-label="Close"><span aria-hidden="true">&times;</span></button> 
                             </Card.Header>
                                 <Card.Body>
                                     <Form.Label>Contact's First Name</Form.Label>
-                                    <Form.Control id={"contactName-" + i} onChange={this.handleContactChange(i)} value={contact.contactName} type="text" placeholder="Enter Contact's First Name" />
+                                    <Form.Control id={"contactName-" + i} onChange={this.handleContactChange(i)} value={contact.firstName} type="text" placeholder="Enter Contact's First Name" />
                                     <Form.Label>Contact's UFL Email</Form.Label>
-                                    <Form.Control id={"contactEmail-" + i} onChange={this.handleContactChange(i)} value={contact.contactEmail}  type="email" placeholder="Add Contact's UFL Email" />
+                                    <Form.Control id={"contactEmail-" + i} onChange={this.handleContactChange(i)} value={contact.email}  type="email" placeholder="Add Contact's UFL Email" />
                                 </Card.Body>
                             </Form.Group>
                         </Card>
@@ -172,11 +170,9 @@ export class RegisterForm extends Component {
                     </Container>
                     </Card>
                     <hr />
-                    <NavLink to = '/success'>
-                        <Button onClick={this.sendRegistration} variant="outline-primary" type="submit" action="/register" >
+                        <Button variant="outline-primary" type="submit">
                             Submit
                         </Button>
-                    </NavLink>
                 </Form>
             </Container>
         )

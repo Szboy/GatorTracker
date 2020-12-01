@@ -35,11 +35,9 @@ class UpdatePerson extends Component {
     }
 
     updatePerson(e) {
-        axios.post('/api/update/' + this.props.match.params.id,
-            querystring.stringify({
+        axios.post('/api/update/' + this.props.match.params.id, {
                 covidPositive: this.state.covidPositive
             })
-        )
     }
 
     componentWillUnmount() {
