@@ -1,11 +1,11 @@
 import mongoose from 'mongoose';
 
 const Contact = new mongoose.Schema({
-    firstName: {
+    contactName: {
         type: String, 
         required: true
     },
-    email: {
+    contactEmail: {
         type: String, 
         required: true
     }

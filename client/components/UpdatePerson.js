@@ -45,9 +45,12 @@ class UpdatePerson extends Component {
     componentWillUnmount() {
         this._isMounted = false;
     }
+
     componentDidMount() {
         let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+
         let history = this.props.history;
+
         axios.get('/api/' + this.props.match.params.id).then((response) => {
             let testDate = response.data.testDate;
             let formatDate = new Date(testDate).toLocaleDateString("en-US", dateOptions)
