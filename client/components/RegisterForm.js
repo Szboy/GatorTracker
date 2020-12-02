@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
-import { Container, Form, Row, Col, Button, Card } from 'react-bootstrap'
+import React, { Component, useState } from 'react';
+import { Container, Form, Row, Col, Button, Card, Alert} from 'react-bootstrap'
 import axios from 'axios';
 import querystring from 'querystring'
 import { NavLink } from 'react-router-dom';
+import {match} from 'assert';
 
+var submitted = new Boolean(false);
+var invalidSubmission = new Boolean(true);
 
 export class RegisterForm extends Component {
     constructor(props) {
@@ -15,12 +18,15 @@ export class RegisterForm extends Component {
             latitude: '',
             covidPositive: false,
             contacts: [],
+            isValid: false
         }
         //Binding stuff because react is dumb.
         this.sendRegistration = this.sendRegistration.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.addContact = this.addContact.bind(this);
+        this.alertDismissable = this.alertDismissable.bind(this);
+        this.validateInput = this.validateInput.bind(this);
     }
 
     //Using arrow notation as regular notation would not work properly.
@@ -49,6 +55,7 @@ export class RegisterForm extends Component {
     }
 
     handleTextChange(e) {
+        console.log("handletextChange called");
         if (e.target.id === "userEmail") {
             this.setState({
                 email: e.target.value
@@ -91,24 +98,109 @@ export class RegisterForm extends Component {
         })
       }
 
-    sendRegistration(e) {
-        axios.post('/api/register', {
-                firstName: this.state.firstName,
-                email: this.state.email,
-                covidPositive: this.state.covidPositive,
-                contacts: this.state.contacts,
-                longitude: this.state.longitude,
-                latitude: this.state.latitude
+    sendRegistration(e) 
+    {
+            console.log('Send reg called');
+            if (this.state.covidPositive)
+            {
+                axios.post('/api/register', {
+                    firstName: this.state.firstName,
+                    email: this.state.email,
+                    covidPositive: this.state.covidPositive,
+                    contacts: this.state.contacts,
+                    longitude: this.state.longitude,
+                    latitude: this.state.latitude
+                    }
+                )
             }
-        )
+            else
+            {
+                axios.post('/api/register', {
+                        firstName: this.state.firstName,
+                        email: this.state.email,
+                        covidPositive: this.state.covidPositive,
+                        contacts: [],
+                        longitude: this.state.longitude,
+                        latitude: this.state.latitude
+                    }
+                )
+            }
+    }
 
+    validateInput(e)
+    {
+        console.log("validateInput called");
+        submitted = true;
+        /*if (this.state.covidPositive) //if we checked the box for COVID positive
+        {
+            var validContacts = new Boolean(true);
+            for (var i = 0; i < this.state.contacts.length; i++)
+            {
+
+            }
+        }*/
+
+        if (this.state.firstName.length == 0 || !this.state.email.match("[A-Za-z0-9._-]+@ufl\.edu") 
+                || this.state.latitude.length == 0 || this.state.longitude.length == 0)
+            {
+                invalidSubmission = true;
+            }
+            else
+            {
+                invalidSubmission = false;
+            }
+
+            this.setState({isValid: !invalidSubmission});
+
+    }
+
+    alertDismissable(e) //change which alert to show upon submission
+    {
+        console.log("alertDismissable called");
+    
+        if (invalidSubmission == true && submitted == true) //if form submitted is not valid
+        {
+            return (
+              <Alert variant="danger" onClose={() => setShow(false)}>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <Alert.Heading>Uh oh!</Alert.Heading>
+                <p>
+                    Form cannot be submitted due to unfulfilled requirements.
+                </p>
+              </Alert>
+            );
+        }
+
+        else if (invalidSubmission == false && submitted == true) //we successfully submitted
+        {
+            return (
+                <Alert variant="success" onClose={() => setShow(false)} dismissible>
+                <Alert.Heading>Success!</Alert.Heading>
+                <p>
+                    Your survey has been successfully recorded and are now
+                    registered in the database! You should be receiving an email
+                    from us shortly. 
+                </p>
+                </Alert>
+            );       
+        }
+        else
+        {
+            return (
+                <Alert onClose={() => setShow(true)}>
+                </Alert>
+            );
+        }
     }
 
     render() {
         return (
             <Container>
+            <this.alertDismissable />
             <h3>Register New User</h3>
-            <Form id="register" onSubmit={this.sendRegistration}>
+            <Form id="register" onSubmit = {this.sendRegistration}>
             <Card className="p-3">
                 <Card.Title>
                     Personal Information
@@ -145,7 +237,7 @@ export class RegisterForm extends Component {
                             <Card.Subtitle style={{width: "165%"}}>If you tested positive, please list the people below for who you were in contact with. If you need to find a specific UFL email, please look up their name in the directory <a href="https://directory.ufl.edu/">here</a>.</Card.Subtitle>
                         </Col>
                         <Col>
-                            <Button className="float-right" variant="outline-success" onClick={this.addContact}>Add Contact</Button>
+        <Button className="float-right" disabled={!this.state.covidPositive} variant="outline-success" onClick={this.addContact}>Add Contact </Button>
                         </Col>
                     </Row>
                     <hr/>
@@ -160,9 +252,9 @@ export class RegisterForm extends Component {
                             </Card.Header>
                                 <Card.Body>
                                     <Form.Label>Contact's First Name</Form.Label>
-                                    <Form.Control id={"contactName-" + i} onChange={this.handleContactChange(i)} value={contact.firstName} type="text" placeholder="Enter Contact's First Name" />
+                                    <Form.Control id={"contactName-" + i} onChange={this.handleContactChange(i)} disabled={!this.state.covidPositive} value={contact.firstName} type="text" placeholder="Enter Contact's First Name" />
                                     <Form.Label>Contact's UFL Email</Form.Label>
-                                    <Form.Control id={"contactEmail-" + i} onChange={this.handleContactChange(i)} value={contact.email}  type="email" placeholder="Add Contact's UFL Email" />
+                                    <Form.Control id={"contactEmail-" + i} onChange={this.handleContactChange(i)} disabled={!this.state.covidPositive} value={contact.email}  type="email" placeholder="Add Contact's UFL Email" />
                                 </Card.Body>
                             </Form.Group>
                         </Card>
@@ -170,7 +262,7 @@ export class RegisterForm extends Component {
                     </Container>
                     </Card>
                     <hr />
-                        <Button variant="outline-primary" type="submit">
+                        <Button variant="outline-primary" onClick={this.validateInput}>
                             Submit
                         </Button>
                 </Form>
