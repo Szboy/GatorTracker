@@ -4,7 +4,6 @@ import { Button, Container, Col, Image, Row, Jumbotron } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/App.css';
 
-
 export class Main extends Component {
     render() {
         return (

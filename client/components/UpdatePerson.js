@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Container, Form, Button } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import querystring from 'querystring'
 
 class UpdatePerson extends Component {
     constructor(props) {

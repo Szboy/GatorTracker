@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Form, Row, Col, Button, Card } from 'react-bootstrap'
 import axios from 'axios';
-import querystring from 'querystring'
-import { NavLink } from 'react-router-dom';
-
 
 export class RegisterForm extends Component {
     constructor(props) {
@@ -13,19 +10,17 @@ export class RegisterForm extends Component {
             email: '',
             longitude: '',
             latitude: '',
-            covidPositive: false,
             contacts: [],
         }
         //Binding stuff because react is dumb.
         this.sendRegistration = this.sendRegistration.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
-        this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.addContact = this.addContact.bind(this);
     }
 
     //Using arrow notation as regular notation would not work properly.
     handleContactChange = i => e => {
-        let contacts = [...this.state.contacts];
+        let contacts = this.state.contacts
 
         if (e.target.id === "contactName-" + i) {
             contacts[i].firstName = e.target.value;
@@ -38,14 +33,6 @@ export class RegisterForm extends Component {
         this.setState({
             contacts
         })
-    }
-
-    handleCheckboxChange(e) {
-        if (e.target.id === "covidPositive") {
-            this.setState({
-                covidPositive: e.target.checked
-            });
-        }
     }
 
     handleTextChange(e) {
@@ -95,7 +82,6 @@ export class RegisterForm extends Component {
         axios.post('/api/register', {
                 firstName: this.state.firstName,
                 email: this.state.email,
-                covidPositive: this.state.covidPositive,
                 contacts: this.state.contacts,
                 longitude: this.state.longitude,
                 latitude: this.state.latitude
@@ -131,10 +117,6 @@ export class RegisterForm extends Component {
                     <Form.Group>
                         <Form.Label>Latitude<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="latitude" value={this.state.latitude} onChange={this.handleTextChange} type="number" placeholder="Enter your latitude" />
-                    </Form.Group>
-
-                    <Form.Group >
-                        <Form.Check id="covidPositive" onChange={this.handleCheckboxChange} type="checkbox" label="Check the box if you have tested positive for COVID-19"></Form.Check>
                     </Form.Group>
                 </Card>
                 <br />

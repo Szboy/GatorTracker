@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav, Form, Button } from 'react-bootstrap'
 
-
 export class MainNav extends Component {
     render() {
         return (
@@ -21,7 +20,7 @@ export class MainNav extends Component {
                     <NavLink to="/register">
                         <Button variant="outline-warning button-nav">Register</Button>
                     </NavLink>
-                    <Nav.Link disabled>v. 1.0.0</Nav.Link>
+                    <Nav.Link disabled>v. 1.2.1</Nav.Link>
                 </Form>
             </Navbar>
         );
