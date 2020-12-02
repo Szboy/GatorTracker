@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Container, Form, Button } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
-import querystring from 'querystring'
 
 class UpdatePerson extends Component {
     constructor(props) {
@@ -35,19 +34,20 @@ class UpdatePerson extends Component {
     }
 
     updatePerson(e) {
-        axios.post('/api/update/' + this.props.match.params.id,
-            querystring.stringify({
+        axios.post('/api/update/' + this.props.match.params.id, {
                 covidPositive: this.state.covidPositive
             })
-        )
     }
 
     componentWillUnmount() {
         this._isMounted = false;
     }
+
     componentDidMount() {
         let dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+
         let history = this.props.history;
+
         axios.get('/api/' + this.props.match.params.id).then((response) => {
             let testDate = response.data.testDate;
             let formatDate = new Date(testDate).toLocaleDateString("en-US", dateOptions)

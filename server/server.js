@@ -1,9 +1,9 @@
 import express from 'express';
-import router from './routes/routes';
 import path from 'path';
-import config from '../config.json';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import router from './routes/routes';
+import config from '../config.json';
 
 const app = express();
 const __dirname = path.resolve();
@@ -14,7 +14,7 @@ app.use(express.static(path.join(__dirname, 'client')));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 
-const uri = config.uri;
+const uri = config.mongoURI;
 if (uri) {
     mongoose.connect(uri,
         { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true, useUnifiedTopology: true });

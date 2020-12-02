@@ -1,10 +1,7 @@
 // Only inital routing and posting lives here. Page routing is done through react via index.js
-
-
 import express from 'express';
 import Person from '../models/person'
-import * as PersonController from '../controllers/personController.js'
-
+import * as PersonController from '../controllers/personController'
 
 const router = express.Router();
 
