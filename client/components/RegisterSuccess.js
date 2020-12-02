@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import querystring from 'querystring';
-import { RegisterForm } from './RegisterForm';
 import '../css/App.css';
 
 export class RegisterSuccess extends Component 
