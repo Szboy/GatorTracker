@@ -3,6 +3,7 @@ import { Nav, Container, Form, Button } from 'react-bootstrap'
 import axios from 'axios';
 import querystring from 'querystring'
 import { NavLink } from 'react-router-dom';
+import geocoder from '../../server/utils/geocoder';
 
 
 export class RegisterForm extends Component {
@@ -58,6 +59,8 @@ export class RegisterForm extends Component {
     }
 
     sendRegistration(e) {
+        const loc = geocoder.geocode(this.state.address);
+        console.log(loc[0].longitude);
         axios.post('/api/register',
             querystring.stringify({
                 firstName: this.state.firstName,
