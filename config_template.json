@@ -2,5 +2,7 @@
     "port": 8000,
     "uri": "",
     "emailUser": "",
-    "emailPass": ""
+    "emailPass": "",
+    "geocoderProvider": "",
+    "geocoderKey": ""
 }

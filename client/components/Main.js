@@ -6,6 +6,23 @@ import '../css/App.css';
 
 
 export class Main extends Component {
+    /*geocodeFunction() {
+        var location = '805 7th street south Safety Harbor FL' 
+        Axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+            params: {
+                address: location,
+                key: 'AIzaSyB5eyGVQrjug2rhMnXHDpwdrsdSESUN9Z4'
+            }
+        })
+        .then(function(response) {
+            var lati = (response.data.results[0].geometry.location.lat);
+            var longi = (response.data.results[0].geometry.location.lng);
+            console.log("The coordinates are Lat:" + lati + " and Long: " + longi );
+    
+    
+        });
+    };*/
+
     render() {
         return (
             <Container>

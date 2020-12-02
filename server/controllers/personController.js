@@ -18,13 +18,15 @@ export const getPerson = (req, res) => {
 export const registerPerson = async (req, res) => {
     let personID = new mongoose.mongo.ObjectId(); //Creating mongoID outside the create function to use it in the email.
     let longLat = [req.body.longitude, req.body.latitude];
-    Person.create({_id: personID, 
+    Person.create({
+        _id: personID, 
         firstName: req.body.firstName, 
         email: req.body.email,
         address: req.body.address, 
         covidPositive: req.body.covidPositive, 
         contacts: [{ firstName: req.body.contactName, email: req.body.contactEmail }], 
-        location: {type: 'Point', coordinates: longLat}}, function (err) {
+        location: {type: 'Point', coordinates: longLat, formattedAddress: String}
+    }, function (err) {
         if (err) {
             res.send(err);
         } else {
