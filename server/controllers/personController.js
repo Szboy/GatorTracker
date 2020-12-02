@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-import Person from '../models/person.js';
-import config from './../config.js';
-=======
 import Person from '../models/person.js'
 import config from '../../config.json';
->>>>>>> main
 import nodeMailer from 'nodemailer';
 import mongoose from 'mongoose';
 
@@ -23,7 +18,13 @@ export const getPerson = (req, res) => {
 export const registerPerson = async (req, res) => {
     let personID = new mongoose.mongo.ObjectId(); //Creating mongoID outside the create function to use it in the email.
     let longLat = [req.body.longitude, req.body.latitude];
-    Person.create({_id: personID, firstName: req.body.firstName, email: req.body.email, covidPositive: req.body.covidPositive, contacts: [{ firstName: req.body.contactName, email: req.body.contactEmail }], location: {type: 'Point', coordinates: longLat}}, function (err) {
+    Person.create({_id: personID, 
+        firstName: req.body.firstName, 
+        email: req.body.email,
+        address: req.body.address, 
+        covidPositive: req.body.covidPositive, 
+        contacts: [{ firstName: req.body.contactName, email: req.body.contactEmail }], 
+        location: {type: 'Point', coordinates: longLat}}, function (err) {
         if (err) {
             res.send(err);
         } else {
@@ -35,13 +36,8 @@ export const registerPerson = async (req, res) => {
     let transporter = nodeMailer.createTransport({
         service: 'gmail',
         auth: {
-<<<<<<< HEAD
-          user: config.db.user,
-          pass: config.db.pass
-=======
           user: config.emailUser,
           pass: config.emailPass
->>>>>>> main
         }
       }); 
 

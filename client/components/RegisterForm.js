@@ -11,8 +11,7 @@ export class RegisterForm extends Component {
         this.state = {
             firstName: '',
             email: '',
-            longitude: '',
-            latitude: '',
+            address: '',
             covidPositive: false,
             contactName: '',
             contactEmail: ''
@@ -41,14 +40,9 @@ export class RegisterForm extends Component {
                 firstName: e.target.value
             });
         }
-        if (e.target.id === "longitude") {
+        if (e.target.id === "address") {
             this.setState({
-                longitude: e.target.value
-            });
-        }
-        if (e.target.id === "latitude") {
-            this.setState({
-                latitude: e.target.value
+                address: e.target.value
             });
         }
         if (e.target.id === "contactName") {
@@ -68,11 +62,10 @@ export class RegisterForm extends Component {
             querystring.stringify({
                 firstName: this.state.firstName,
                 email: this.state.email,
+                address: this.state.address,
                 covidPositive: this.state.covidPositive,
                 contactName: this.state.contactName,
                 contactEmail: this.state.contactEmail,
-                longitude: this.state.longitude,
-                latitude: this.state.latitude
             })
         )
 
@@ -99,13 +92,8 @@ export class RegisterForm extends Component {
                     </Form.Group>
 
                     <Form.Group>
-                        <Form.Label>Longitude<span className="text-danger">*</span></Form.Label>
-                        <Form.Control id="longitude" value={this.state.longitude} onChange={this.handleTextChange} type="number" placeholder="Enter your longitude" />
-                    </Form.Group>
-
-                    <Form.Group>
-                        <Form.Label>Latitude<span className="text-danger">*</span></Form.Label>
-                        <Form.Control id="latitude" value={this.state.latitude} onChange={this.handleTextChange} type="number" placeholder="Enter your latitude" />
+                        <Form.Label>Address<span className="text-danger">*</span></Form.Label>
+                        <Form.Control id="address" value={this.state.address} onChange={this.handleTextChange} type="text" placeholder="Add Address" />
                     </Form.Group>
 
                     <Form.Group >
