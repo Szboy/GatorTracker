@@ -27,7 +27,7 @@ export const registerPerson = async (req, res) => {
             Mailer.userMailer(doc);
             Mailer.contactMailer(doc.contacts);
         }
-    });
+    })
 };
 
 export const updatePerson = async (req, res) => {
