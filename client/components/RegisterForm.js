@@ -86,7 +86,10 @@ export class RegisterForm extends Component {
                 longitude: this.state.longitude,
                 latitude: this.state.latitude
             }
-        )
+        ).then(() => {
+            console.log("are we removing?")
+            window.location.reload();
+        })
 
     }
 
@@ -94,7 +97,7 @@ export class RegisterForm extends Component {
         return (
             <Container>
             <h3>Register New User</h3>
-            <Form id="register" onSubmit={this.sendRegistration}>
+            <Form id="register" >
             <Card className="p-3">
                 <Card.Title>
                     Personal Information
@@ -152,7 +155,7 @@ export class RegisterForm extends Component {
                     </Container>
                     </Card>
                     <hr />
-                        <Button variant="outline-primary" type="submit">
+                        <Button variant="outline-primary" type="button" onClick={this.sendRegistration}>
                             Submit
                         </Button>
                 </Form>

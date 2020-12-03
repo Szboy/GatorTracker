@@ -10,8 +10,8 @@ const transporter = nodeMailer.createTransport({
     }
   });
 
-export const userMailer = async (user) => {
-    await transporter.sendMail({
+export const userMailer = (user) => {
+    return transporter.sendMail({
         from: '"Gator Tracker" <gatortrackers@gmail.com>',
         to: user.email, 
         subject: "[Gator Tracker] User Registration Confirmation",
@@ -23,7 +23,7 @@ export const userMailer = async (user) => {
 }
 
 export const contactMailer = async (contacts) => {
-    await contacts.forEach(async contact => {
+    return await contacts.forEach(async contact => {
         await transporter.sendMail({
             from: '"Gator Tracker" <gatortrackers@gmail.com>',
             to: contact.email, 
