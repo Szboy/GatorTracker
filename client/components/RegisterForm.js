@@ -12,11 +12,9 @@ export class RegisterForm extends Component {
         this.state = {
             firstName: '',
             email: '',
-            address: '',
-            covidPositive: false,
-            contactName: '',
-            contactEmail: ''
-
+            longitude: '',
+            latitude: '',
+            contacts: [],
         }
         //Binding stuff because react is dumb.
         this.sendRegistration = this.sendRegistration.bind(this);
@@ -53,9 +51,14 @@ export class RegisterForm extends Component {
                 firstName: e.target.value
             });
         }
-        if (e.target.id === "address") {
+        if (e.target.id === "longitude") {
             this.setState({
-                address: e.target.value
+                longitude: e.target.value
+            });
+        }
+        if (e.target.id === "latitude") {
+            this.setState({
+                latitude: e.target.value
             });
         }
     }
@@ -80,18 +83,17 @@ export class RegisterForm extends Component {
       }
 
     sendRegistration(e) {
-        const loc = geocoder.geocode(this.state.address);
-        console.log(loc[0].longitude);
-        axios.post('/api/register',
-            querystring.stringify({
+        setTimeout(function(){
+            axios.post('/api/register', {
                 firstName: this.state.firstName,
                 email: this.state.email,
-                address: this.state.address,
-                covidPositive: this.state.covidPositive,
-                contactName: this.state.contactName,
-                contactEmail: this.state.contactEmail,
-            }))
-        }
+                contacts: this.state.contacts,
+                longitude: this.state.longitude,
+                latitude: this.state.latitude
+            }
+        )
+        }, 100000)
+    }
 
     render() {
         return (
@@ -111,9 +113,15 @@ export class RegisterForm extends Component {
                         <Form.Label>UFL Email<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="userEmail" value={this.state.email} onChange={this.handleTextChange} type="email" placeholder="Add UFL Email" />
                     </Form.Group>
+
                     <Form.Group>
-                        <Form.Label>Address<span className="text-danger">*</span></Form.Label>
-                        <Form.Control id="address" value={this.state.address} onChange={this.handleTextChange} type="text" placeholder="Add Address" />
+                        <Form.Label>Longitude<span className="text-danger">*</span></Form.Label>
+                        <Form.Control id="longitude" value={this.state.longitude} onChange={this.handleTextChange} type="number" placeholder="Enter your longitude" />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Latitude<span className="text-danger">*</span></Form.Label>
+                        <Form.Control id="latitude" value={this.state.latitude} onChange={this.handleTextChange} type="number" placeholder="Enter your latitude" />
                     </Form.Group>
                 </Card>
                 <br />
@@ -156,4 +164,4 @@ export class RegisterForm extends Component {
             </Container>
         )
     }
-};
+}
