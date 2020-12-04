@@ -21,6 +21,7 @@ export const registerPerson = async (req, res) => {
          contacts: req.body.contacts, 
          location: {type: 'Point', coordinates: longLat},
     }).save().then((doc) => {
+        res.status(200).send()
         Mailer.userMailer(doc);
         console.log("Made it here");
         Mailer.contactMailer(doc.contacts);
