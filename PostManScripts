@@ -36,7 +36,7 @@ pm.test('Correct Location Data!', ()=>{
 })
 
 
-Working Post Request
+Working Post Register Request
 http://localhost:80/api/register
 
 Body/raw/JSON
@@ -54,3 +54,23 @@ Body/raw/JSON
 			"longitude": 2,
 			"latitude": 2
 }
+
+Postman Test Script For Register Post
+
+pm.test('Successful Get!', ()=>{
+    pm.response.to.have.status(200);
+})
+
+Working Post Update Request
+http://localhost:80/api/update/5fcd420815bf8559d4fc8dba
+
+Body/raw/JSON
+{
+    "covidPositive": false
+}
+
+Postman Test Script for Update Post
+
+pm.test('Successful Get!', ()=>{
+    pm.response.to.have.status(200);
+})
