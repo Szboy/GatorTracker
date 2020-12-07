@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Col, Image, Row, Jumbotron } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/App.css';
+import config from "../../config.json"
 
 export class Main extends Component {
     /*geocodeFunction() {
@@ -53,7 +54,7 @@ export class Main extends Component {
                 <hr/>
                 <br/>
                 <h5>Positive Case Heat Map</h5>
-                <iframe styles="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="1080" height="720" src="https://charts.mongodb.com/charts-project-0-pmwni/embed/charts?id=57f65d96-ea7f-48db-81fb-b25f37fbbf4e&theme=light"></iframe>
+                <iframe styles="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="1080" height="720" src= {config.heatmapURI}></iframe>
             </Container>
         );
     }

@@ -36,5 +36,6 @@ module.exports = {
             template: path.join(__dirname, 'client/index.ejs'),
         })
     ],
-    mode: 'development'
+    mode: 'development',
+    //node: {net: 'empty', fs: 'empty', tls: 'empty'}
 }
