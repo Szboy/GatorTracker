@@ -15,18 +15,16 @@ export const getPerson = (req, res) => {
 
 export const registerPerson = async (req, res) => {
     let longLat = [req.body.longitude, req.body.latitude];
-    await new Person({ 
-        firstName: req.body.firstName, 
-        email: req.body.email,
-        contacts: req.body.contacts, 
-        location: {type: 'Point', coordinates: longLat},
-    }).save(function (err, doc) {
-        if (err) {
-            res.send(err);
-        } else {
-            Mailer.userMailer(doc);
-            Mailer.contactMailer(doc.contacts);
-        }
+    return await new Person({ 
+         firstName: req.body.firstName, 
+         email: req.body.email,
+         contacts: req.body.contacts, 
+         location: {type: 'Point', coordinates: longLat},
+    }).save().then((doc) => {
+        res.status(200).send()
+        Mailer.userMailer(doc);
+        console.log("Made it here");
+        Mailer.contactMailer(doc.contacts);
     })
 };
 
