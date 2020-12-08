@@ -1,6 +1,7 @@
 import Person from '../models/person';
 import * as Mailer from './mailer'
 
+
 export const getPerson = (req, res) => {
     Person.findOne({_id: req.params.id}, function (data, err) {
         if (err) {
@@ -23,7 +24,6 @@ export const registerPerson = async (req, res) => {
     }).save().then((doc) => {
         res.status(200).send()
         Mailer.userMailer(doc);
-        console.log("Made it here");
         Mailer.contactMailer(doc.contacts);
     })
 };
