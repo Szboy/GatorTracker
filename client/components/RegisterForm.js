@@ -8,6 +8,7 @@ export class RegisterForm extends Component {
         this.state = {
             firstName: '',
             email: '',
+            address: '',
             longitude: '',
             latitude: '',
             contacts: [],
@@ -45,6 +46,12 @@ export class RegisterForm extends Component {
         if (e.target.id === "userName") {
             this.setState({
                 firstName: e.target.value
+            });
+        }
+
+        if (e.target.id === "address") {
+            this.setState({
+                address: e.target.value
             });
         }
         if (e.target.id === "longitude") {
@@ -85,9 +92,7 @@ export class RegisterForm extends Component {
                 contacts: this.state.contacts,
                 longitude: this.state.longitude,
                 latitude: this.state.latitude
-            }
-        )
-
+            })
     }
 
     render() {
@@ -108,7 +113,10 @@ export class RegisterForm extends Component {
                         <Form.Label>UFL Email<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="userEmail" value={this.state.email} onChange={this.handleTextChange} type="email" placeholder="Add UFL Email" />
                     </Form.Group>
-
+                    <Form.Group>
+                        <Form.Label>Address<span className="text-danger">*</span></Form.Label>
+                        <Form.Control id="address" value={this.state.address} onChange={this.handleTextChange} type="text" placeholder="Add address" />
+                    </Form.Group>
                     <Form.Group>
                         <Form.Label>Longitude<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="longitude" value={this.state.longitude} onChange={this.handleTextChange} type="number" placeholder="Enter your longitude" />
@@ -159,4 +167,4 @@ export class RegisterForm extends Component {
             </Container>
         )
     }
-}
+};

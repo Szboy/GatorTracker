@@ -3,5 +3,7 @@
     "mongoURI": "",
     "baseURL": "http://localhost/", 
     "emailUser": "",
-    "emailPass": ""
+    "emailPass": "",
+    "geocoderProvider": "",
+    "geocoderKey": ""
 }

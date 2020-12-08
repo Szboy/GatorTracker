@@ -11,7 +11,7 @@ export const getPerson = (req, res) => {
             res.send(data);
         }
     })
-}
+};
 
 export const registerPerson = async (req, res) => {
     let longLat = [req.body.longitude, req.body.latitude];
