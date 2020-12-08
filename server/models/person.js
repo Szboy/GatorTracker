@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import geocoder from '../utils/geocoder';
 
 const Contact = new mongoose.Schema({
     email: {
@@ -51,11 +50,6 @@ const Person = new mongoose.Schema({
     location: {
         type: Location
     }
-});
-
-Person.pre('save', async function(next){
-    const loc = await geocoder.geocode(this.address);
-    console.log(loc);
 });
 
 //Converts address to location
