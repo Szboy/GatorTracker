@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Container, Col, Image, Row, Jumbotron } from 'react-bootstrap';
+import { Button, Container, Col, Row, ResponsiveEmbed, Jumbotron } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/App.css';
-
 
 export class Main extends Component {
     render() {
@@ -37,7 +36,11 @@ export class Main extends Component {
                 <hr/>
                 <br/>
                 <h5>Positive Case Heat Map</h5>
-                <Image className="img-thumbnail text-center mx-auto d-block col-sm-10" src="../assets/mapPlaceholder.png" />
+                <div>
+                    <ResponsiveEmbed aspectRatio="16by9">
+                    <embed className="embed-responsive-item" title="Heatmap" src="https://charts.mongodb.com/charts-project-0-pmwni/embed/charts?id=57f65d96-ea7f-48db-81fb-b25f37fbbf4e&theme=light"></embed>
+                    </ResponsiveEmbed>
+                </div>
             </Container>
         );
     }

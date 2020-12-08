@@ -1,6 +1,9 @@
 {
-    "port": 8000,
-    "uri": "",
+    "port": 80,
+    "mongoURI": "",
+    "baseURL": "http://localhost/", 
     "emailUser": "",
-    "emailPass": ""
+    "emailPass": "",
+    "geocoderProvider": "",
+    "geocoderKey": ""
 }

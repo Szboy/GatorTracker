@@ -1,15 +1,16 @@
 import mongoose from 'mongoose';
+import geocoder from '../utils/geocoder';
 
 const Contact = new mongoose.Schema({
     email: {
         type: String, 
-        required: true
+        required: true,
     },
     firstName: {
         type: String, 
-        required: true
+        required: true,
     }
-})
+});
 
 const Location = new mongoose.Schema({
     type: {
@@ -18,21 +19,27 @@ const Location = new mongoose.Schema({
       },
       coordinates: {
         type: [Number],
-        index: '2dsphere'
+        index: '2dsphere',
+        formattedAddress: String
       }
-})
+});
 
 const Person = new mongoose.Schema({
     firstName: {
         type: String, 
-        required: true
+        required: true,
     },
     email: {
         type: String, 
-        required: true
+        required: true,
+    },
+    address: {
+        type: String,
+        //required: true
     },
     covidPositive: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
     testDate: {
         type: Date,
@@ -44,6 +51,14 @@ const Person = new mongoose.Schema({
     location: {
         type: Location
     }
-})
+});
+
+Person.pre('save', async function(next){
+    const loc = await geocoder.geocode(this.address);
+    console.log(loc);
+});
+
+//Converts address to location
+
 
 export default mongoose.model('Person', Person);

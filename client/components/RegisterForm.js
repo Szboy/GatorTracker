@@ -11,6 +11,7 @@ export class RegisterForm extends Component {
         this.state = {
             firstName: '',
             email: '',
+            address: '',
             longitude: '',
             latitude: '',
             contacts: [],
@@ -40,7 +41,6 @@ export class RegisterForm extends Component {
             contacts
         })
     }
- 
     handleTextChange(e) {
         submitted = false;
         invalidSubmission = true;
@@ -49,10 +49,16 @@ export class RegisterForm extends Component {
                 email: e.target.value
             });
         }
- 
+        
         if (e.target.id === "userName") {
             this.setState({
                 firstName: e.target.value
+            });
+        }
+
+        if (e.target.id === "address") {
+            this.setState({
+                address: e.target.value
             });
         }
         if (e.target.id === "longitude") {
@@ -173,24 +179,17 @@ export class RegisterForm extends Component {
                 contacts: this.state.contacts,
                 longitude: this.state.longitude,
                 latitude: this.state.latitude
-            }
-        )
- 
+            }).then(() => {
+                window.location.reload();
+            })
     }
  
     render() {
         return (
-            <Container>
+            <Container> 
             <this.alertDismissable />
             <h3>Register New User</h3>
-            <Form id="register" onSubmit={
-                                (e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                this.validateInput();
-                                if(!invalidSubmission) {this.resetForm();}
- 
-                            }}>
+            <Form id="register" >
             <Card className="p-3">
                 <Card.Title>
                     Personal Information
@@ -204,7 +203,6 @@ export class RegisterForm extends Component {
                         <Form.Label>UFL Email<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="userEmail" value={this.state.email} onChange={this.handleTextChange} type="email" placeholder="Add UFL Email" />
                     </Form.Group>
- 
                     <Form.Group>
                         <Form.Label>Longitude<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="longitude" value={this.state.longitude} onChange={this.handleTextChange} type="number" placeholder="Enter your longitude" />
@@ -248,11 +246,17 @@ export class RegisterForm extends Component {
                     </Container>
                     </Card>
                     <hr />
-                        <Button variant="outline-primary" type="success">
+                        <Button variant="outline-primary" type="button" onClick={(e) => {
+                                this.validateInput();
+                                if(!invalidSubmission) {
+                                    this.resetForm();
+                                } else {
+                                    this.sendRegistration(e);
+                            }}}>
                             Submit
                         </Button>
                 </Form>
             </Container>
         )
     }
-}
+};

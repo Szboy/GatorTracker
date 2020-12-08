@@ -9,6 +9,7 @@ import { Main } from './components/Main';
 import { MainNav } from './components/MainNav';
 import { RegisterSuccess } from './components/RegisterSuccess';
 import UpdatePerson from './components/UpdatePerson';
+
 ReactDOM.render(
     <Router>
         <Container>

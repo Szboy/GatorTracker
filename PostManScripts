@@ -1,0 +1,76 @@
+Working GET request
+http://localhost:80/api/5fc979be9788d23fc498fa5d
+
+Postman Test Script for GET
+pm.test('Successful Get!', ()=>{
+    pm.response.to.have.status(200);
+})
+
+pm.test('Correct Name Data!', ()=>{
+    var jsonData = pm.response.json();
+    var name = jsonData.firstName;
+    pm.expect(name).to.equal("Shawn");
+})
+
+pm.test('Correct email Data!', ()=>{
+    var jsonData = pm.response.json();
+    var testVar = jsonData.email;
+    pm.expect(testVar).to.equal("shawnn.zimmer@gmail.com");
+})
+
+pm.test('Correct Contact Data!', ()=>{
+    var jsonData = pm.response.json();
+    var testVar = jsonData.contacts[0].firstName;
+    var testVar2 = jsonData.contacts[0].email;
+    pm.expect(testVar).to.equal("Shawn");
+    pm.expect(testVar2).to.equal("szimmer@ufl.edu");
+
+})
+
+pm.test('Correct Location Data!', ()=>{
+    var jsonData = pm.response.json();
+    var testVar = jsonData.location.coordinates[0];
+    var testVar2 = jsonData.location.coordinates[1];
+    pm.expect(testVar).to.equal(2);
+    pm.expect(testVar2).to.equal(2);
+})
+
+
+Working Post Register Request
+http://localhost:80/api/register
+
+Body/raw/JSON
+{
+    "covidPositive": true,
+    "firstName": "TESTPUSH",
+    "email": "sanborn1016@gmail.com",
+    "contacts": [
+        {
+            "firstName": "TESTPUSHCONTACT",
+            "email": "davidhutchins@ufl.edu"
+        }
+    ],
+
+			"longitude": 2,
+			"latitude": 2
+}
+
+Postman Test Script For Register Post
+
+pm.test('Successful Get!', ()=>{
+    pm.response.to.have.status(200);
+})
+
+Working Post Update Request
+http://localhost:80/api/update/5fcd420815bf8559d4fc8dba
+
+Body/raw/JSON
+{
+    "covidPositive": false
+}
+
+Postman Test Script for Update Post
+
+pm.test('Successful Get!', ()=>{
+    pm.response.to.have.status(200);
+})
