@@ -1,27 +1,30 @@
-import React, { Component } from 'react';
-import { Container, Form, Row, Col, Button, Card } from 'react-bootstrap'
+import React, { Component} from 'react';
+import { Container, Form, Row, Col, Button, Card, Alert } from 'react-bootstrap'
 import axios from 'axios';
-import querystring from 'querystring'
-import { NavLink } from 'react-router-dom';
-import geocoder from '../../server/utils/geocoder';
-
-
+ 
+let submitted = false;
+let invalidSubmission = true;
+ 
 export class RegisterForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             firstName: '',
             email: '',
+            address: '',
             longitude: '',
             latitude: '',
             contacts: [],
+            isValid: false
         }
         //Binding stuff because react is dumb.
         this.sendRegistration = this.sendRegistration.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.addContact = this.addContact.bind(this);
+        this.validateInput = this.validateInput.bind(this);
+        this.alertDismissable = this.alertDismissable.bind(this);
     }
-
+ 
     //Using arrow notation as regular notation would not work properly.
     handleContactChange = i => e => {
         let contacts = this.state.contacts
@@ -40,22 +43,26 @@ export class RegisterForm extends Component {
     }
 
     handleTextChange(e) {
+        submitted = false;
+        invalidSubmission = true;
         if (e.target.id === "userEmail") {
             this.setState({
                 email: e.target.value
             });
         }
-
+        
         if (e.target.id === "userName") {
             this.setState({
                 firstName: e.target.value
             });
         }
+
         if (e.target.id === "longitude") {
             this.setState({
                 longitude: e.target.value
             });
         }
+
         if (e.target.id === "latitude") {
             this.setState({
                 latitude: e.target.value
@@ -82,24 +89,98 @@ export class RegisterForm extends Component {
         })
       }
 
+    resetForm = () => { 
+        this.setState({
+                firstName: '',
+                email: '',
+                longitude: '',
+                latitude: '',
+                contacts: [],
+                isValid: false
+        });
+    }
+ 
+ 
+    validateInput(e) {
+        submitted = true;
+        var validContacts = true;
+ 
+        for (var i = 0; i < this.state.contacts.length; i++) {
+            if (this.state.contacts[i].firstName.length === 0 || !this.state.contacts[i].email.match("[A-Za-z0-9._-]+@ufl.edu"))
+            {
+                validContacts = false;
+                break;
+            }
+        }
+            if (this.state.firstName.length === 0 || !this.state.email.match("[A-Za-z0-9._-]+@ufl.edu") 
+                || this.state.latitude.length === 0 || this.state.longitude.length === 0 
+                || !validContacts)
+            {
+                invalidSubmission = true;
+ 
+            }
+            else
+            {
+                invalidSubmission = false;
+                this.sendRegistration();
+            }
+ 
+            this.setState({isValid: !invalidSubmission});
+
+    }
+ 
+    alertDismissable(e) { //change which alert to show upon submission
+    
+        if (invalidSubmission === true && submitted === true) { //if form submitted is not valid 
+            window.scrollTo(0, 0)
+            return (
+              <Alert variant="danger">
+                <Alert.Heading>Uh oh!</Alert.Heading>
+                <p>
+                    Form cannot be submitted due to unfulfilled requirements.
+                </p>
+              </Alert>
+            );
+ 
+        }
+ 
+        else if (invalidSubmission === false && submitted === true) {
+            window.scrollTo(0, 0)
+            return (
+                <Alert variant="success" data-dismiss="alert">
+                <Alert.Heading>Success!</Alert.Heading>
+                <p>
+                    Your survey has been successfully recorded and are now
+                    registered in the database! You should be receiving an email
+                    from us shortly. 
+                </p>
+                </Alert>
+            );       
+        }
+        else {
+            return null
+        }
+    }
+ 
     sendRegistration(e) {
-        setTimeout(function(){
-            axios.post('/api/register', {
+ 
+        axios.post('/api/register', {
                 firstName: this.state.firstName,
                 email: this.state.email,
                 contacts: this.state.contacts,
                 longitude: this.state.longitude,
                 latitude: this.state.latitude
-            }
-        )
-        }, 100000)
+            }).then(() => {
+                window.location.reload();
+            })
     }
-
+ 
     render() {
         return (
-            <Container>
+            <Container> 
+            <this.alertDismissable />
             <h3>Register New User</h3>
-            <Form id="register" onSubmit={this.sendRegistration}>
+            <Form id="register" >
             <Card className="p-3">
                 <Card.Title>
                     Personal Information
@@ -118,7 +199,6 @@ export class RegisterForm extends Component {
                         <Form.Label>Longitude<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="longitude" value={this.state.longitude} onChange={this.handleTextChange} type="number" placeholder="Enter your longitude" />
                     </Form.Group>
-
                     <Form.Group>
                         <Form.Label>Latitude<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="latitude" value={this.state.latitude} onChange={this.handleTextChange} type="number" placeholder="Enter your latitude" />
@@ -157,7 +237,13 @@ export class RegisterForm extends Component {
                     </Container>
                     </Card>
                     <hr />
-                        <Button variant="outline-primary" type="submit">
+                        <Button variant="outline-primary" type="button" onClick={(e) => {
+                                this.validateInput();
+                                if(!invalidSubmission) {
+                                    this.resetForm();
+                                } else {
+                                    this.sendRegistration(e);
+                            }}}>
                             Submit
                         </Button>
                 </Form>

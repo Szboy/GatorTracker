@@ -1,28 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Container, Col, Image, Row, Jumbotron } from 'react-bootstrap';
+import { Button, Container, Col, Row, ResponsiveEmbed, Jumbotron } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/App.css';
-import config from "../../config.json"
 
 export class Main extends Component {
-    /*geocodeFunction() {
-        var location = '805 7th street south Safety Harbor FL' 
-        Axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-            params: {
-                address: location,
-                key: 'AIzaSyB5eyGVQrjug2rhMnXHDpwdrsdSESUN9Z4'
-            }
-        })
-        .then(function(response) {
-            var lati = (response.data.results[0].geometry.location.lat);
-            var longi = (response.data.results[0].geometry.location.lng);
-            console.log("The coordinates are Lat:" + lati + " and Long: " + longi );
-    
-    
-        });
-    };*/
-
     render() {
         return (
             <Container>
@@ -54,7 +36,11 @@ export class Main extends Component {
                 <hr/>
                 <br/>
                 <h5>Positive Case Heat Map</h5>
-                <iframe styles="background: #FFFFFF;border: none;border-radius: 2px;box-shadow: 0 2px 10px 0 rgba(70, 76, 79, .2);" width="1080" height="720" src= {config.heatmapURI}></iframe>
+                <div>
+                    <ResponsiveEmbed aspectRatio="16by9">
+                        <embed className="embed-responsive-item" title="Heatmap" src="https://charts.mongodb.com/charts-project-0-pmwni/embed/charts?id=57f65d96-ea7f-48db-81fb-b25f37fbbf4e&theme=light"></embed>
+                    </ResponsiveEmbed>
+                </div>
             </Container>
         );
     }

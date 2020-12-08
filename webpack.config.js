@@ -37,5 +37,5 @@ module.exports = {
         })
     ],
     mode: 'development',
-    //node: {net: 'empty', fs: 'empty', tls: 'empty'}
+    node: {net: 'empty', fs: 'empty', tls: 'empty'}
 }
