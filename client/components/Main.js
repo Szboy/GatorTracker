@@ -38,7 +38,7 @@ export class Main extends Component {
                 <h5>Positive Case Heat Map</h5>
                 <div>
                     <ResponsiveEmbed aspectRatio="16by9">
-                    <embed className="embed-responsive-item" title="Heatmap" src="https://charts.mongodb.com/charts-project-0-pmwni/embed/charts?id=57f65d96-ea7f-48db-81fb-b25f37fbbf4e&theme=light"></embed>
+                        <embed className="embed-responsive-item" title="Heatmap" src="https://charts.mongodb.com/charts-project-0-pmwni/embed/charts?id=57f65d96-ea7f-48db-81fb-b25f37fbbf4e&theme=light"></embed>
                     </ResponsiveEmbed>
                 </div>
             </Container>

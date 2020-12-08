@@ -28,19 +28,20 @@ export class RegisterForm extends Component {
     //Using arrow notation as regular notation would not work properly.
     handleContactChange = i => e => {
         let contacts = this.state.contacts
- 
+
         if (e.target.id === "contactName-" + i) {
             contacts[i].firstName = e.target.value;
         }
- 
+
         if (e.target.id === "contactEmail-" + i) {
             contacts[i].email = e.target.value;
         }
- 
+
         this.setState({
             contacts
         })
     }
+
     handleTextChange(e) {
         submitted = false;
         invalidSubmission = true;
@@ -61,18 +62,20 @@ export class RegisterForm extends Component {
                 address: e.target.value
             });
         }
+
         if (e.target.id === "longitude") {
             this.setState({
                 longitude: e.target.value
             });
         }
+
         if (e.target.id === "latitude") {
             this.setState({
                 latitude: e.target.value
             });
         }
     }
- 
+
     addContact(e) {
         let contact = {
             firstName: '',
@@ -83,7 +86,7 @@ export class RegisterForm extends Component {
           contacts
         })
       }
- 
+
     removeContact = i => e => {
         let contacts = this.state.contacts
         contacts.splice(i, 1)
@@ -91,7 +94,7 @@ export class RegisterForm extends Component {
             contacts
         })
       }
- 
+
     resetForm = () => { 
         this.setState({
                 firstName: '',
@@ -101,12 +104,6 @@ export class RegisterForm extends Component {
                 contacts: [],
                 isValid: false
         });
- 
- 
-        console.log("reset called");
- 
- 
- 
     }
  
  
@@ -207,7 +204,7 @@ export class RegisterForm extends Component {
                         <Form.Label>Longitude<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="longitude" value={this.state.longitude} onChange={this.handleTextChange} type="number" placeholder="Enter your longitude" />
                     </Form.Group>
- 
+
                     <Form.Group>
                         <Form.Label>Latitude<span className="text-danger">*</span></Form.Label>
                         <Form.Control id="latitude" value={this.state.latitude} onChange={this.handleTextChange} type="number" placeholder="Enter your latitude" />
