@@ -1,10 +1,9 @@
-import React, { Component, useState } from 'react';
+import React, { Component} from 'react';
 import { Container, Form, Row, Col, Button, Card, Alert } from 'react-bootstrap'
 import axios from 'axios';
  
-var submitted = new Boolean(false);
-var invalidSubmission = new Boolean(true);
- 
+let submitted = false;
+let invalidSubmission = true;
  
 export class RegisterForm extends Component {
     constructor(props) {
@@ -105,23 +104,19 @@ export class RegisterForm extends Component {
     }
  
  
-    validateInput(e)
-    {
-        console.log("validateInput called");
+    validateInput(e) {
         submitted = true;
-        var validContacts = new Boolean(true);
+        var validContacts = true;
  
-        for (var i = 0; i < this.state.contacts.length; i++)
-        {
-            if (this.state.contacts[i].firstName.length == 0 || !this.state.contacts[i].email.match("[A-Za-z0-9._-]+@ufl\.edu"))
+        for (var i = 0; i < this.state.contacts.length; i++) {
+            if (this.state.contacts[i].firstName.length === 0 || !this.state.contacts[i].email.match("[A-Za-z0-9._-]+@ufl.edu"))
             {
                 validContacts = false;
                 break;
             }
         }
- 
-        if (this.state.firstName.length == 0 || !this.state.email.match("[A-Za-z0-9._-]+@ufl\.edu") 
-                || this.state.latitude.length == 0 || this.state.longitude.length == 0 
+            if (this.state.firstName.length === 0 || !this.state.email.match("[A-Za-z0-9._-]+@ufl.edu") 
+                || this.state.latitude.length === 0 || this.state.longitude.length === 0 
                 || !validContacts)
             {
                 invalidSubmission = true;
@@ -134,19 +129,15 @@ export class RegisterForm extends Component {
             }
  
             this.setState({isValid: !invalidSubmission});
- 
- 
+
     }
  
-    alertDismissable(e) //change which alert to show upon submission
-    {
-        console.log("alertDismissable called");
- 
-        if (invalidSubmission == true && submitted == true) //if form submitted is not valid
-        {
+    alertDismissable(e) { //change which alert to show upon submission
+    
+        if (invalidSubmission === true && submitted === true) { //if form submitted is not valid 
             window.scrollTo(0, 0)
             return (
-              <Alert variant="danger" onClose={() => setShow(false)}>
+              <Alert variant="danger">
                 <Alert.Heading>Uh oh!</Alert.Heading>
                 <p>
                     Form cannot be submitted due to unfulfilled requirements.
@@ -156,11 +147,10 @@ export class RegisterForm extends Component {
  
         }
  
-        else if (invalidSubmission == false && submitted == true) //we successfully submitted
-        {
+        else if (invalidSubmission === false && submitted === true) {
             window.scrollTo(0, 0)
             return (
-                <Alert variant="success" onClose={() => setShow(false)}>
+                <Alert variant="success" data-dismiss="alert">
                 <Alert.Heading>Success!</Alert.Heading>
                 <p>
                     Your survey has been successfully recorded and are now
@@ -170,12 +160,8 @@ export class RegisterForm extends Component {
                 </Alert>
             );       
         }
-        else
-        {
-            return (
-                <Alert onClose={() => setShow(true)}>
-                </Alert>
-            );
+        else {
+            return null
         }
     }
  
