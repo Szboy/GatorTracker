@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Form, Row, Col, Button, Card, Alert } from 'react-bootstrap'
+import { Container, OverlayTrigger, Tooltip, Form, Row, Col, Button, Card, Alert } from 'react-bootstrap'
 import axios from 'axios';
 import { RegisterSuccess } from './RegisterSuccess';
 
@@ -13,6 +13,7 @@ export class RegisterForm extends Component {
             firstName: '',
             email: '',
             address: '',
+            testDate: '',
             contacts: [],
             errorMessages: [],
             successRegistration: false,
@@ -60,6 +61,11 @@ export class RegisterForm extends Component {
         if (e.target.id === "address") {
             this.setState({
                 address: e.target.value
+            });
+        }
+        if (e.target.id === "testDate") {
+            this.setState({
+                testDate: e.target.value
             });
         }
     }
@@ -142,23 +148,27 @@ export class RegisterForm extends Component {
             firstName: this.state.firstName,
             email: this.state.email,
             contacts: this.state.contacts,
+            testDate: this.state.testDate,
             longitude: '',
             latitude: ''
         }
-        
-        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-            params: {
-                address: this.state.address,
-                key: 'AIzaSyB5eyGVQrjug2rhMnXHDpwdrsdSESUN9Z4'
-            }
+        if (this.state.address) {
+            axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                params: {
+                    address: this.state.address,
+                    key: 'AIzaSyB5eyGVQrjug2rhMnXHDpwdrsdSESUN9Z4'
+                }
 
-        }).then(res => {
-            //Add geocode response for lat and long.
-            registerPayload.latitude = res.data.results[0].geometry.location.lat;
-            registerPayload.longitude = res.data.results[0].geometry.location.lng;
+            }).then(res => {
+                //Add geocode response for lat and long.
+                registerPayload.latitude = res.data.results[0].geometry.location.lat;
+                registerPayload.longitude = res.data.results[0].geometry.location.lng;
 
+                axios.post('/api/register', registerPayload)
+            })
+        } else {
             axios.post('/api/register', registerPayload)
-        })
+        }
         this.setState({
             successRegistration: true
         })
@@ -188,7 +198,19 @@ export class RegisterForm extends Component {
                             <Form.Control id="userEmail" value={this.state.email} onChange={this.handleTextChange} type="email" placeholder="Add UFL Email" />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Address<span className="text-danger">*</span></Form.Label>
+                        <Form.Label>Test Date
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-date">If you do not input the date of your test we will use today's date in our system.</Tooltip>}>
+                                    <sup className="text-successss">?</sup>
+                                </OverlayTrigger>
+                            </Form.Label>
+                            <Form.Control id="testDate" value={this.state.testDate} onChange={this.handleTextChange} type="date" placeholder="Enter the date of your most-recent positive Test" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Address
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-address">We only use your address for our Heatmap, it is optional to give it to us.</Tooltip>}>
+                                    <sup className="text-successss">?</sup>
+                                </OverlayTrigger>
+                            </Form.Label>
                             <Form.Control id="address" value={this.state.address} onChange={this.handleTextChange} type="text" placeholder="Enter your address" />
                         </Form.Group>
                     </Card>
