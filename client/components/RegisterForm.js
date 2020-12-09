@@ -206,7 +206,7 @@ export class RegisterForm extends Component {
                                     <sup className="text-successss">?</sup>
                                 </OverlayTrigger>
                             </Form.Label>
-                            <Form.Control id="testDate" value={this.state.testDate} onChange={this.handleTextChange} type="date" placeholder="Enter the date of your most-recent positive Test" />
+                            <Form.Control id="testDate" value={this.state.testDate} onChange={this.handleTextChange} type="date" max={new Date().toISOString().substring(0,10)} placeholder="Enter the date of your most-recent positive Test" />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Address

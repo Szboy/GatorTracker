@@ -15,7 +15,7 @@ export const getPerson = (req, res) => {
 };
 
 export const registerPerson = async (req, res) => {
-    let testDate = req.body.testDate ? req.body.testDate : new Date();
+    let testDate = req.body.testDate ? new Date(req.body.testDate).setUTCHours(12) : new Date(); //Mongo can case any date format but we need to add 12 hours due to timezone purposes.
 
     if (req.body.longitude) { //Giving location is option so we need to deal with that.
         let longLat = [req.body.longitude, req.body.latitude];
