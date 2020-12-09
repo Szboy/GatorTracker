@@ -17,8 +17,8 @@ export const getPerson = (req, res) => {
 
 export const registerPerson = async (req, res) => {
     let testDate = req.body.testDate ? req.body.testDate : new Date();
-    if (req.body.longitude) { //Giving location is option so we need to deal with that.
 
+    if (req.body.longitude) { //Giving location is option so we need to deal with that.
         let longLat = [req.body.longitude, req.body.latitude];
 
         return await new Person({
@@ -33,7 +33,6 @@ export const registerPerson = async (req, res) => {
             Mailer.contactMailer(doc.contacts);
         })
     } else {
-
         return await new Person({
             firstName: req.body.firstName,
             email: req.body.email,
