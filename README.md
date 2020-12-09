@@ -4,8 +4,8 @@ Welcome to our very nice and cool project.
 ## First time Set-up
 1. Clone the repo using the cloning process of your choice (Mine is `git clone ssh`)
 2. Once cloned, run `npm install`. This will install all the dependencies (There are a lot!).
-3. Duplicate the config_template.json into config.json `cp config_template.json config.json` if using linux/bash.
-4. Add mongo and email credentials into config.json.
+3. Duplicate the .env.default into .env `cp .env.default .env` if using linux/bash.
+4. Add mongo and email credentials into .env.
 5. Some computers might need `webpack-cli` or `webpack` installed globally. If this is necessary make sure to use `npm link`.
 
 ## Running the App

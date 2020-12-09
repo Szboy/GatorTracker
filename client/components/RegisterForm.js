@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Container, OverlayTrigger, Tooltip, Form, Row, Col, Button, Card, Alert } from 'react-bootstrap'
 import axios from 'axios';
-import config from '../../config.json';
 import { RegisterSuccess } from './RegisterSuccess';
 
 let submitted = false;
@@ -159,7 +158,7 @@ export class RegisterForm extends Component {
             axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
                 params: {
                     address: this.state.address,
-                    key: config.geocoderKey
+                    key: process.env.GEOCODER_KEY
                 }
 
             }).then(res => {

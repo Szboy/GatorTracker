@@ -1,4 +1,3 @@
 import app from '../server/server.js';
-import config from '../config.json';
 
-app.listen(config.port, () => console.info('Gator Tracker App loaded at '+ config.baseURL + ' on port ' + config.port));
+app.listen(process.env.PORT, () => console.info('Gator Tracker App loaded at '+ process.env.BASE_URL + ' on port ' + process.env.PORT));

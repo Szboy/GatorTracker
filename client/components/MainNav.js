@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav, Form, Button } from 'react-bootstrap'
-import config from '../../config.json';
+import app from '../../package.json';
 
 export class MainNav extends Component {
     render() {
@@ -22,7 +22,7 @@ export class MainNav extends Component {
                     <NavLink to="/register">
                         <Button variant="outline-warning button-nav">Register</Button>
                     </NavLink>
-                    <Nav.Link disabled>v. {config.version}</Nav.Link>
+                    <Nav.Link disabled>v. {app.version}</Nav.Link>
                 </Form>
             </Navbar>
         );
