@@ -32,7 +32,7 @@ class UpdatePerson extends Component {
 
         let history = this.props.history;
 
-        axios.get('/api/' + this.props.match.params.id).then((response) => {
+        axios.get('/api/' + this.props.match.params.id).then(response => {
             let testDate = response.data.testDate;
             let formatDate = new Date(testDate).toLocaleDateString("en-US", dateOptions)
             this.setState({firstName: response.data.firstName, covidPositive: response.data.covidPositive, date: formatDate})

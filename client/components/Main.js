@@ -1,10 +1,25 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Container, Col, Row, ResponsiveEmbed, Jumbotron } from 'react-bootstrap';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/App.css';
 
 export class Main extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            totalCases: 0,
+            totalPositives: 0,
+            totalNegatives: 0,
+            totalContacts: 0
+        }
+    }
+    componentDidMount() {
+        axios.get('/api/statistics').then(res => {
+            this.setState(res.data);
+        })
+    }
     render() {
         return (
             <Container>
@@ -18,19 +33,19 @@ export class Main extends Component {
                 <Row className="justify-content-center">
                     <Col className="mainStatistic">
                         <h5 className="text-center">Total Cases</h5>
-                        <h3 className="text-center">0</h3>
-                    </Col>
-                    <Col className="mainStatistic">
-                        <h5 className="text-center">Total Contacts</h5>
-                        <h3 className="text-center">0</h3>
+                        <h3 className="text-center">{this.state.totalCases}</h3>
                     </Col>
                     <Col className="mainStatistic">
                         <h5 className="text-center">Total Positives</h5>
-                        <h3 className="text-center">0</h3>
+                        <h3 className="text-center">{this.state.totalPositives}</h3>
                     </Col>
                     <Col className="mainStatistic">
                         <h5 className="text-center">Total Negatives</h5>
-                        <h3 className="text-center">0</h3>
+                        <h3 className="text-center">{this.state.totalNegatives}</h3>
+                    </Col>
+                    <Col className="mainStatistic">
+                        <h5 className="text-center">Total Contacts</h5>
+                        <h3 className="text-center">{this.state.totalContacts}</h3>
                     </Col>
                 </Row>
                 <hr/>

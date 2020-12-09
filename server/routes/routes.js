@@ -10,8 +10,8 @@ router.get('/', function (req, res) {
 });
 router.post('/api/update/:id', PersonController.updatePerson);
 router.post('/api/register', PersonController.registerPerson);
+router.get('/api/statistics', PersonController.getStatistics);
 router.get('/api/:id', PersonController.getPerson);
-
 
 //Test Population of db
 /*
