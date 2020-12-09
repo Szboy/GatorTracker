@@ -63,8 +63,6 @@ export class About extends Component {
                     <br/>
                     <b>Noah Yehuda</b>: Development Team Member
                 </p>
-                <br />
-                <br />
         </div>
         );
     }

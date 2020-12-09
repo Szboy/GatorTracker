@@ -259,7 +259,6 @@ export class RegisterForm extends Component {
                         Submit
                     </Button>
                 </Form>
-                <br />
             </Container>
         )
     };
