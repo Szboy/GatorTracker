@@ -47,7 +47,6 @@ module.exports = () => {
             }),
             new webpack.DefinePlugin(envKeys)
         ],
-        mode: 'development',
         node: { net: 'empty', fs: 'empty', tls: 'empty' }
     }
 }

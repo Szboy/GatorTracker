@@ -32,7 +32,9 @@
     "react-hot-loader": "^4.13.0",
     "react-modal": "^3.11.2",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "webpack": "^4.28.3",
+    "webpack-cli": "^3.1.2"
   },
   "scripts": {
     "start": "nodemon --exec babel-node -- bin/www.js",
@@ -54,8 +56,6 @@
     ]
   },
   "devDependencies": {
-    "webpack": "^4.28.3",
-    "webpack-cli": "^3.1.2",
     "webpack-dev-server": "^3.1.14"
   },
   "engines": {
