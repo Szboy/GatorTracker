@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Form, Row, Col, Button, Card, Alert } from 'react-bootstrap'
 import axios from 'axios';
+import { RegisterSuccess } from './RegisterSuccess';
 
 let submitted = false;
 let invalidSubmission = true;
@@ -13,14 +14,15 @@ export class RegisterForm extends Component {
             email: '',
             address: '',
             contacts: [],
-            errorMessages: []
+            errorMessages: [],
+            successRegistration: false,
         }
         //Binding stuff because react is dumb.
         this.sendRegistration = this.sendRegistration.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.addContact = this.addContact.bind(this);
         this.validateInput = this.validateInput.bind(this);
-        this.alertDismissable = this.alertDismissable.bind(this);
+        this.alertHandler = this.alertHandler.bind(this);
     }
 
     //Using arrow notation as regular notation would not work properly.
@@ -58,18 +60,6 @@ export class RegisterForm extends Component {
         if (e.target.id === "address") {
             this.setState({
                 address: e.target.value
-            });
-        }
-
-        if (e.target.id === "longitude") {
-            this.setState({
-                longitude: e.target.value
-            });
-        }
-
-        if (e.target.id === "latitude") {
-            this.setState({
-                latitude: e.target.value
             });
         }
     }
@@ -129,7 +119,7 @@ export class RegisterForm extends Component {
         this.setState({ errorMessages });
     }
 
-    alertDismissable(e) { 
+    alertHandler(e) { 
         if (invalidSubmission === true && submitted === true) {
             window.scrollTo(0, 0);
             return (
@@ -141,25 +131,13 @@ export class RegisterForm extends Component {
                         </li>))}
                 </Alert>
             );
-        } else if (invalidSubmission === false && submitted === true) {
-            window.scrollTo(0, 0);
-            return (
-                <Alert variant="success" data-dismiss="alert">
-                    <Alert.Heading>Success!</Alert.Heading>
-                    <p>
-                        Your survey has been successfully recorded and are now
-                        registered in the database! You should be receiving an email
-                        from us shortly.
-                </p>
-                </Alert>
-            )
         } else {
             return null
         }
     }
 
     sendRegistration(e) {
-        //can't utilize state in post request since this binds too the get request.
+        //Can't utilize state in post request since this binds too the get request.
         let registerPayload = {
             firstName: this.state.firstName,
             email: this.state.email,
@@ -175,19 +153,24 @@ export class RegisterForm extends Component {
             }
 
         }).then(res => {
-            //add geocode response for lat and long.
+            //Add geocode response for lat and long.
             registerPayload.latitude = res.data.results[0].geometry.location.lat;
             registerPayload.longitude = res.data.results[0].geometry.location.lng;
 
-            axios.post('/api/register', registerPayload).then(() => {
-                window.location.reload();
-            });
+            axios.post('/api/register', registerPayload)
+        })
+        this.setState({
+            successRegistration: true
         })
     }
     render() {
+        if (this.state.successRegistration) {
+            return <RegisterSuccess />  
+        }
+
         return (
             <Container>
-                <this.alertDismissable />
+                <this.alertHandler />
                 <h3>Register New User</h3>
                 <Form id="register" >
                     <Card className="p-3">
@@ -214,7 +197,7 @@ export class RegisterForm extends Component {
                         <Row>
                             <Col>
                                 <Card.Title>Contact Information</Card.Title>
-                                <Card.Subtitle style={{ width: "165%" }}>If you tested positive, please list the people below for who you were in contact with. If you need to find a specific UFL email, please look up their name in the directory <a href="https://directory.ufl.edu/">here</a>.</Card.Subtitle>
+                                <Card.Subtitle style={{ width: "165%" }}>If you tested positive, please list the people below for who you were in contact with. If you need to find a specific UFL email, please look up their name in the directory <a href="https://directory.ufl.edu/" rel="noopener noreferrer" target="_blank">here</a>.</Card.Subtitle>
                             </Col>
                             <Col>
                                 <Button className="float-right" variant="outline-success" onClick={this.addContact}>Add Contact</Button>
@@ -253,5 +236,5 @@ export class RegisterForm extends Component {
                 </Form>
             </Container>
         )
-    }
-};
+    };
+}

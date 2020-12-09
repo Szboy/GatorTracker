@@ -33,7 +33,7 @@ export class About extends Component {
                 <h1 className="display-4">UF Testing Centers and Resources</h1>
                 <p className="pl-4">
                 The University of Florida offers extensive resources to combat the virus, you can visit their dedicated webpage to
-                learn more about the symptoms and treatment, as well as schedule a test <a href="https://coronavirus.ufl.edu/resources/">here</a>.
+                learn more about the symptoms and treatment, as well as schedule a test <a href="https://coronavirus.ufl.edu/resources/" rel="noopener noreferrer" target="_blank">here</a>.
                 </p>
                 <h1 className="display-4">Data Privacy and HIPAA Information</h1>
                 <p className="pl-4">
