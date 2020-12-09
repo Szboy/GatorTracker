@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Form, Row, Col, Button, Card, Alert } from 'react-bootstrap'
+import { Container, OverlayTrigger, Tooltip, Form, Row, Col, Button, Card, Alert } from 'react-bootstrap'
 import axios from 'axios';
+import config from '../../config.json';
+import { RegisterSuccess } from './RegisterSuccess';
 
 let submitted = false;
 let invalidSubmission = true;
@@ -12,15 +14,18 @@ export class RegisterForm extends Component {
             firstName: '',
             email: '',
             address: '',
+            testDate: '',
             contacts: [],
-            errorMessages: []
+            errorMessages: [],
+            successRegistration: false,
         }
+
         //Binding stuff because react is dumb.
         this.sendRegistration = this.sendRegistration.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.addContact = this.addContact.bind(this);
         this.validateInput = this.validateInput.bind(this);
-        this.alertDismissable = this.alertDismissable.bind(this);
+        this.alertHandler = this.alertHandler.bind(this);
     }
 
     //Using arrow notation as regular notation would not work properly.
@@ -43,6 +48,7 @@ export class RegisterForm extends Component {
     handleTextChange(e) {
         submitted = false;
         invalidSubmission = true;
+        
         if (e.target.id === "userEmail") {
             this.setState({
                 email: e.target.value
@@ -60,16 +66,9 @@ export class RegisterForm extends Component {
                 address: e.target.value
             });
         }
-
-        if (e.target.id === "longitude") {
+        if (e.target.id === "testDate") {
             this.setState({
-                longitude: e.target.value
-            });
-        }
-
-        if (e.target.id === "latitude") {
-            this.setState({
-                latitude: e.target.value
+                testDate: e.target.value
             });
         }
     }
@@ -109,7 +108,7 @@ export class RegisterForm extends Component {
         let errorMessages = [];
         for (let i = 0; i < this.state.contacts.length; i++) {
             if (!this.state.contacts[i].email.match("[A-Za-z0-9._-]+@ufl.edu")) {
-                errorMessages.push("Contact " + this.state.contacts[i].firstName + ": Email does not  follow ufl format (sample@ufl.edu)!")
+                errorMessages.push("Contact " + this.state.contacts[i].firstName + ": Email does not follow ufl format (sample@ufl.edu)!")
             }
 
             if (this.state.contacts[i].firstName.length === 0) {
@@ -129,7 +128,7 @@ export class RegisterForm extends Component {
         this.setState({ errorMessages });
     }
 
-    alertDismissable(e) { 
+    alertHandler(e) { 
         if (invalidSubmission === true && submitted === true) {
             window.scrollTo(0, 0);
             return (
@@ -141,53 +140,50 @@ export class RegisterForm extends Component {
                         </li>))}
                 </Alert>
             );
-        } else if (invalidSubmission === false && submitted === true) {
-            window.scrollTo(0, 0);
-            return (
-                <Alert variant="success" data-dismiss="alert">
-                    <Alert.Heading>Success!</Alert.Heading>
-                    <p>
-                        Your survey has been successfully recorded and are now
-                        registered in the database! You should be receiving an email
-                        from us shortly.
-                </p>
-                </Alert>
-            )
         } else {
             return null
         }
     }
 
     sendRegistration(e) {
-        //can't utilize state in post request since this binds too the get request.
+        //Can't utilize state in post request since this binds too the get request.
         let registerPayload = {
             firstName: this.state.firstName,
             email: this.state.email,
             contacts: this.state.contacts,
+            testDate: this.state.testDate,
             longitude: '',
             latitude: ''
         }
-        
-        axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-            params: {
-                address: this.state.address,
-                key: 'AIzaSyB5eyGVQrjug2rhMnXHDpwdrsdSESUN9Z4'
-            }
+        if (this.state.address) {
+            axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+                params: {
+                    address: this.state.address,
+                    key: config.geocoderKey
+                }
 
-        }).then(res => {
-            //add geocode response for lat and long.
-            registerPayload.latitude = res.data.results[0].geometry.location.lat;
-            registerPayload.longitude = res.data.results[0].geometry.location.lng;
+            }).then(res => {
+                //Add geocode response for lat and long.
+                registerPayload.latitude = res.data.results[0].geometry.location.lat;
+                registerPayload.longitude = res.data.results[0].geometry.location.lng;
 
-            axios.post('/api/register', registerPayload).then(() => {
-                window.location.reload();
-            });
+                axios.post('/api/register', registerPayload)
+            })
+        } else {
+            axios.post('/api/register', registerPayload)
+        }
+        this.setState({
+            successRegistration: true
         })
     }
     render() {
+        if (this.state.successRegistration) {
+            return <RegisterSuccess />  
+        }
+
         return (
             <Container>
-                <this.alertDismissable />
+                <this.alertHandler />
                 <h3>Register New User</h3>
                 <Form id="register" >
                     <Card className="p-3">
@@ -202,10 +198,22 @@ export class RegisterForm extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>UFL Email<span className="text-danger">*</span></Form.Label>
-                            <Form.Control id="userEmail" value={this.state.email} onChange={this.handleTextChange} type="email" placeholder="Add UFL Email" />
+                            <Form.Control id="userEmail" value={this.state.email} onChange={this.handleTextChange} type="email" placeholder="Enter UFL Email" />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Address<span className="text-danger">*</span></Form.Label>
+                        <Form.Label>Test Date
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-date">If you do not input the date of your test we will use today's date in our system.</Tooltip>}>
+                                    <sup className="text-successss">?</sup>
+                                </OverlayTrigger>
+                            </Form.Label>
+                            <Form.Control id="testDate" value={this.state.testDate} onChange={this.handleTextChange} type="date" placeholder="Enter the date of your most-recent positive Test" />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Address
+                                <OverlayTrigger overlay={<Tooltip id="tooltip-address">We only use your address for our Heatmap, it is optional to give it to us.</Tooltip>}>
+                                    <sup className="text-successss">?</sup>
+                                </OverlayTrigger>
+                            </Form.Label>
                             <Form.Control id="address" value={this.state.address} onChange={this.handleTextChange} type="text" placeholder="Enter your address" />
                         </Form.Group>
                     </Card>
@@ -214,7 +222,7 @@ export class RegisterForm extends Component {
                         <Row>
                             <Col>
                                 <Card.Title>Contact Information</Card.Title>
-                                <Card.Subtitle style={{ width: "165%" }}>If you tested positive, please list the people below for who you were in contact with. If you need to find a specific UFL email, please look up their name in the directory <a href="https://directory.ufl.edu/">here</a>.</Card.Subtitle>
+                                <Card.Subtitle style={{ width: "165%" }}>If you tested positive, please list the people below for who you were in contact with. If you need to find a specific UFL email, please look up their name in the directory <a href="https://directory.ufl.edu/" rel="noopener noreferrer" target="_blank">here</a>.</Card.Subtitle>
                             </Col>
                             <Col>
                                 <Button className="float-right" variant="outline-success" onClick={this.addContact}>Add Contact</Button>
@@ -253,5 +261,5 @@ export class RegisterForm extends Component {
                 </Form>
             </Container>
         )
-    }
-};
+    };
+}

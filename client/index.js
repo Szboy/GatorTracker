@@ -4,9 +4,10 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import { About } from './components/About';
-import { RegisterForm } from './components/RegisterForm';
+import ForgotLink from './components/ForgotLink';
 import { Main } from './components/Main';
 import { MainNav } from './components/MainNav';
+import { RegisterForm } from './components/RegisterForm';
 import { RegisterSuccess } from './components/RegisterSuccess';
 import UpdatePerson from './components/UpdatePerson';
 
@@ -19,6 +20,7 @@ ReactDOM.render(
                 <Route path="/register"><RegisterForm /></Route>
                 <Route path="/success"><RegisterSuccess /></Route>
                 <Route path="/about"><About /></Route>
+                <Route path="/forgot"><ForgotLink /></Route>
                 <Route path="/:id"><UpdatePerson /></Route>
                 <Route path ="/"><Main /></Route>
             </Switch>
