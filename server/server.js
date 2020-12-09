@@ -23,7 +23,7 @@ if (uri) {
 }
 
 mongoose.connection
-    .once('open', () => console.info(`Connected to Mongo on: ` + uri))
+    .once('open', () => console.info('Connected to Mongo on: ' + uri))
     .on('error', (error) => console.error(error.toString()));
 
 app.use('/', router);

@@ -1,6 +1,5 @@
 import Person from '../models/person';
-import * as Mailer from './mailer'
-
+import * as Mailer from './mailer';
 
 export const getPerson = (req, res) => {
     Person.findOne({ _id: req.params.id }, function (data, err) {
@@ -31,7 +30,7 @@ export const registerPerson = async (req, res) => {
             res.status(200).send()
             Mailer.userMailer(doc);
             Mailer.contactMailer(doc.contacts);
-        })
+        });
     } else {
         return await new Person({
             firstName: req.body.firstName,
@@ -77,4 +76,10 @@ export const getStatistics = async (req, res) => {
     }
     
    res.send(data);
+}
+
+export const getLink = async (req, res) => {
+    return await Person.findOne({email: req.body.email}).exec().then((doc) => {
+        Mailer.linkMailer(doc)
+    })
 }

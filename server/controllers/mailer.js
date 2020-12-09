@@ -10,8 +10,8 @@ const transporter = nodeMailer.createTransport({
     }
   });
 
-export const userMailer = (user) => {
-    return transporter.sendMail({
+export const userMailer = async (user) => {
+    return await transporter.sendMail({
         from: '"Gator Tracker" <gatortrackers@gmail.com>',
         to: user.email, 
         subject: "[Gator Tracker] User Registration Confirmation",
@@ -35,4 +35,16 @@ export const contactMailer = async (contacts) => {
             console.log("Contact Message sent: %s", email.messageId)
         }); 
     })
+}
+
+export const linkMailer = async (user) => {
+    return await transporter.sendMail({
+        from: '"Gator Tracker" <gatortrackers@gmail.com>',
+        to: user.email, 
+        subject: "[Gator Tracker] Status Update Link Requested",
+        text: "Hello " + user.firstName + ", You have requested your unique link to update your COVID-19 status. If you did not make this request, please ignore this email. If you did, please click here: " + config.baseURL + user._id + " to update your COVID-19 status. Thank you, The Gator Tracker Team *Not affiliated with UF",
+        html: "<p>Hello " + user.firstName + ", </p><p>You have requested your unique link to update your COVID-19 status. If you did not make this request, please ignore this email. If you did, please click here: " + config.baseURL + user._id + " to update your COVID-19 status.</p><p>Best,</p> <b>The Gator Tracker Team</b> <p><i>Not affiliated with UF</p></i>"
+    }).then(email => {
+        console.log("Forgot Link Message sent: %s", email.messageId)
+    }); 
 }

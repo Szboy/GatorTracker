@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, OverlayTrigger, Tooltip, Form, Row, Col, Button, Card, Alert } from 'react-bootstrap'
 import axios from 'axios';
+import config from '../../config.json';
 import { RegisterSuccess } from './RegisterSuccess';
 
 let submitted = false;
@@ -18,6 +19,7 @@ export class RegisterForm extends Component {
             errorMessages: [],
             successRegistration: false,
         }
+        
         //Binding stuff because react is dumb.
         this.sendRegistration = this.sendRegistration.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
@@ -46,6 +48,7 @@ export class RegisterForm extends Component {
     handleTextChange(e) {
         submitted = false;
         invalidSubmission = true;
+        
         if (e.target.id === "userEmail") {
             this.setState({
                 email: e.target.value
@@ -156,7 +159,7 @@ export class RegisterForm extends Component {
             axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
                 params: {
                     address: this.state.address,
-                    key: 'AIzaSyB5eyGVQrjug2rhMnXHDpwdrsdSESUN9Z4'
+                    key: config.geocoderKey
                 }
 
             }).then(res => {
@@ -195,7 +198,7 @@ export class RegisterForm extends Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>UFL Email<span className="text-danger">*</span></Form.Label>
-                            <Form.Control id="userEmail" value={this.state.email} onChange={this.handleTextChange} type="email" placeholder="Add UFL Email" />
+                            <Form.Control id="userEmail" value={this.state.email} onChange={this.handleTextChange} type="email" placeholder="Enter UFL Email" />
                         </Form.Group>
                         <Form.Group>
                         <Form.Label>Test Date

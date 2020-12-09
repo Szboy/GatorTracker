@@ -13,6 +13,7 @@ class UpdatePerson extends Component {
             covidPositive: null
 
         }
+        
         //Binding stuff because react is dumb.
         this.updatePerson = this.updatePerson.bind(this);
     }
