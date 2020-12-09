@@ -19,7 +19,7 @@ export class RegisterForm extends Component {
             errorMessages: [],
             successRegistration: false,
         }
-        
+
         //Binding stuff because react is dumb.
         this.sendRegistration = this.sendRegistration.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
@@ -108,7 +108,7 @@ export class RegisterForm extends Component {
         let errorMessages = [];
         for (let i = 0; i < this.state.contacts.length; i++) {
             if (!this.state.contacts[i].email.match("[A-Za-z0-9._-]+@ufl.edu")) {
-                errorMessages.push("Contact " + this.state.contacts[i].firstName + ": Email does not  follow ufl format (sample@ufl.edu)!")
+                errorMessages.push("Contact " + this.state.contacts[i].firstName + ": Email does not follow ufl format (sample@ufl.edu)!")
             }
 
             if (this.state.contacts[i].firstName.length === 0) {

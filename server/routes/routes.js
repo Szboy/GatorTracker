@@ -7,6 +7,7 @@ const router = express.Router();
 router.get('/', function (req, res) {
     res.render('index') //React index routing.
 });
+
 router.post('/api/update/:id', PersonController.updatePerson);
 router.post('/api/register', PersonController.registerPerson);
 router.post('/api/forgotLink', PersonController.getLink);
