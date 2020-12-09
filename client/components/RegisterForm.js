@@ -6,7 +6,9 @@ import { RegisterSuccess } from './RegisterSuccess';
 let submitted = false;
 let invalidSubmission = true;
 
+
 export class RegisterForm extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
