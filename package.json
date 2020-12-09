@@ -27,7 +27,8 @@
   },
   "scripts": {
     "start": "nodemon --exec babel-node -- bin/www.js",
-    "dev": "webpack --mode development --watch"
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development --watch"
   },
   "eslintConfig": {
     "extends": "react-app"
