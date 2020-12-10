@@ -6,7 +6,7 @@ export const getPerson = (req, res) => {
 
         if (err) {
             res.send(err);
-        } else if (!data.length) {
+        } else if (data === null) {
             return res.status(404).send('User not found.')
         } else {
             res.send(data);
