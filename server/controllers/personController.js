@@ -1,16 +1,11 @@
 import Person from '../models/person';
 import * as Mailer from './mailer';
 
-export const getPerson = (req, res) => {
-    Person.findOne({ _id: req.params.id }, function (data, err) {
-
-        if (err) {
-            res.send(err);
-        } else if (data === null) {
-            return res.status(404).send('User not found.')
-        } else {
-            res.send(data);
-        }
+export const getPerson = async (req, res) => {
+    return await Person.findOne({ _id: req.params.id }).then((data) => {
+        res.send(data);
+    }).catch(() => {
+        res.status(404).send()
     })
 };
 
