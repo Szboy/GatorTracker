@@ -21,11 +21,7 @@ class UpdatePerson extends Component {
     updatePerson(e) {
         axios.post('/api/update/' + this.props.match.params.id, {
                 covidPositive: !this.state.covidPositive
-            })
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false;
+            }).then(window.location.reload())
     }
 
     componentDidMount() {
@@ -51,7 +47,7 @@ class UpdatePerson extends Component {
                 <p className="lead text-center">You identified yourself as COVID <b>{this.state.covidPositive ? 'positive' : 'negative'}</b> on <b>{this.state.date}</b></p>
                 <hr />
                     <Form>
-                        <Button className="mx-auto d-block" variant="outline-primary" onClick={this.updatePerson} id="covidPositive" type="submit">
+                        <Button className="mx-auto d-block" variant="outline-primary" onClick={this.updatePerson} id="covidPositive" type="button">
                             Update COVID-19 status to {this.state.covidPositive ? 'negative' : 'positive'}
                         </Button>
                     </Form>
