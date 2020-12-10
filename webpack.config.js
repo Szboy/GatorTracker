@@ -1,16 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 
 module.exports = () => {
-    const env = dotenv.config();
-
-    // reduce it to a nice object, the same as before
-    const envKeys = Object.keys(env).reduce((prev, next) => {
-        prev[`process.env.${next}`] = JSON.stringify(env[next]);
-        return prev;
-    }, {});
     return {
         entry: './client/index.js',
         module: {
@@ -45,7 +38,11 @@ module.exports = () => {
             new HtmlWebpackPlugin({
                 template: path.join(__dirname, 'client/index.ejs'),
             }),
-            new webpack.DefinePlugin(envKeys)
+            new webpack.DefinePlugin({
+                'process.env': {
+                    GEOCODER_KEY: JSON.stringify(process.env.GEOCODER_KEY)
+                }
+            })
         ],
         node: { net: 'empty', fs: 'empty', tls: 'empty' }
     }
